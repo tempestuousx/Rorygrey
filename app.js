@@ -498,7 +498,7 @@ function renderPaint() {
 
 /* --- App registry --- */
 const APPS = {
-  paint: { tag: "", title: "untitled - Paint", num: "", w: 470, h: 627, render: renderPaint, fixed: true, cls: "paint" },
+  paint: { tag: "", title: "untitled - Paint", num: "", w: 423, h: 564, render: renderPaint, fixed: true, cls: "paint" },
   passwords: { tag: "§ System", title: "Passwords.txt", num: "", w: 504, h: 548, render: renderPasswords, fixed: true },
   env: { tag: "§ System", title: ".env", num: "", w: 504, h: 548, render: renderEnv, fixed: true },
   finalfinal: { tag: "§ Image", title: "Final_Final_REAL_Final_v7.jpg", num: "▦", w: 460, h: 560, render: renderFinalFinal, onMount: mountFinalFinal, fixed: true },
