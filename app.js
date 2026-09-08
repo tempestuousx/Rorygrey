@@ -829,8 +829,23 @@ function renderIcons() {
     node.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); clearSel(); node.classList.add("selected"); activateIcon(ic); } });
     iconLayer.appendChild(node);
   });
+  packMobileIcons();
 }
 function clearSel() { iconLayer.querySelectorAll(".icon.selected").forEach((n) => n.classList.remove("selected")); }
+
+// On phones, stack every icon in a single tight vertical column near the left edge.
+function packMobileIcons() {
+  if (!document.body.classList.contains("compact")) return;
+  const startX = 8, startY = 10, gap = 4;
+  let y = startY;
+  ICONS.forEach((ic) => {
+    const node = iconLayer.querySelector(`.icon[data-id="${ic.id}"]`);
+    if (!node) return;
+    node.style.left = startX + "px";
+    node.style.top = y + "px";
+    y += node.offsetHeight + gap;
+  });
+}
 
 /* ============================== DOCK ==================================== */
 const DOCK = [
@@ -911,7 +926,7 @@ document.addEventListener("keydown", (e) => {
     document.addEventListener("pointerup", up);
   });
 })();
-window.addEventListener("resize", applyCompact);
+window.addEventListener("resize", () => { applyCompact(); packMobileIcons(); });
 
 /* ===================== MINESWEEPER ===================== */
 function renderMinesweeper() {
@@ -1374,10 +1389,18 @@ tickClock(); setInterval(tickClock, 1000);
 openApp("paint");
 (function offsetPaint() {
   const pw = openWindows.get("paint"); if (!pw) return;
-  const vw = window.innerWidth, w = pw.node.offsetWidth;
-  let left = Math.round(vw / 2 - w / 2 + vw * 0.11);   // a little right of centre
-  left = Math.max(8, Math.min(left, vw - w - 8));
-  pw.node.style.left = left + "px";
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const w = pw.node.offsetWidth, h = pw.node.offsetHeight;
+  if (document.body.classList.contains("compact")) {
+    // On phones, tuck the portrait into the lower-right corner, clear of the icons.
+    const bottomReserve = document.body.classList.contains("win98") ? 38 : 96;
+    pw.node.style.left = Math.max(8, vw - w - 8) + "px";
+    pw.node.style.top = Math.max(8, vh - bottomReserve - h - 8) + "px";
+  } else {
+    let left = Math.round(vw / 2 - w / 2 + vw * 0.11);   // a little right of centre
+    left = Math.max(8, Math.min(left, vw - w - 8));
+    pw.node.style.left = left + "px";
+  }
 })();
 
 // Deter right-click / drag-save on photography
