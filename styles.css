@@ -475,7 +475,7 @@ body.win98 .icon[data-id="snake"] .glyph { width: auto; height: 104px; }
 body.win98 .icon[data-id="screening"] .glyph,
 body.win98 .icon[data-id="etiquette"] .glyph,
 body.win98 .icon[data-id="faq"] .glyph,
-body.win98 .icon[data-id="blogfolder"] .glyph { width: 62px; height: 62px; }
+body.win98 .icon[data-id="blogfolder"] .glyph { width: 72px; height: 72px; }
 
 .folder-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; padding: 14px; background: #fff; align-content: start; }
 .folder-item { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 9px 4px; text-align: center; border: 1px solid transparent; cursor: pointer; color: inherit; }

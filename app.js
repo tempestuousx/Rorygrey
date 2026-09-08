@@ -547,7 +547,7 @@ function openApp(id) {
   const compact = document.body.classList.contains("compact");
   const win98 = document.body.classList.contains("win98");
   const topMin = win98 ? 6 : 40;
-  const bottomReserve = win98 ? 38 : 96;
+  const bottomReserve = win98 ? (compact ? 42 : 48) : 96;
   const availH = vh - topMin - bottomReserve;
   let width = Math.min(app.w, vw - (compact ? 12 : 20));
   // On phones the Paint portrait would otherwise fill the screen — keep it a modest window.
@@ -752,7 +752,7 @@ const saveIconPos = () => { try { localStorage.setItem(ICON_POS_KEY, JSON.string
 // as the desktop runs out of height. Used for any icon the user hasn't
 // dragged somewhere else yet.
 function defaultIconPositions() {
-  const startX = 12, startY = 14, colW = 116, rowH = 120;
+  const startX = 12, startY = 14, colW = 122, rowH = 132;
   const availH = (iconLayer.clientHeight || (window.innerHeight - 40)) - 8;
   const pos = {};
   let x = startX, y = startY;
@@ -1393,7 +1393,7 @@ openApp("paint");
   const w = pw.node.offsetWidth, h = pw.node.offsetHeight;
   if (document.body.classList.contains("compact")) {
     // On phones, tuck the portrait into the lower-right corner, clear of the icons.
-    const bottomReserve = document.body.classList.contains("win98") ? 38 : 96;
+    const bottomReserve = document.body.classList.contains("win98") ? 42 : 96;
     pw.node.style.left = Math.max(8, vw - w - 8) + "px";
     pw.node.style.top = Math.max(8, vh - bottomReserve - h - 8) + "px";
   } else {

@@ -42,20 +42,20 @@ body.win98 .dock { display: none; }
 body.win98 .wallmark { display: none; }
 
 /* --- desktop: flat pink, taskbar reserves the bottom --- */
-body.win98 .desktop { inset: 0 0 33px 0; background: #2b2930; }
+body.win98 .desktop { inset: 0 0 42px 0; background: #2b2930; }
 body.win98 .desktop::before, body.win98 .desktop::after { display: none; content: none; }
 
 /* --- desktop icons: start in a tidy vertical column (arranged by app.js,
        wrapping into more columns as space allows) and are freely draggable.
        Same behaviour on phones — the compact grid is overridden below. --- */
 body.win98 .icon-layer { position: absolute; inset: 0; }
-body.win98 .icon { width: 96px; gap: 7px; padding: 7px 5px; }
+body.win98 .icon { width: 106px; gap: 7px; padding: 7px 5px; }
 body.win98.compact .icon-layer { display: block; inset: 0; }
 body.win98.compact .icon { position: absolute !important; width: 74px; }
-body.win98 .icon .glyph { width: 52px; height: 52px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(1px 1px 0 rgba(0,0,0,.35)); }
+body.win98 .icon .glyph { width: 60px; height: 60px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(1px 1px 0 rgba(0,0,0,.35)); }
 body.win98 .icon .label {
   color: #fff; font-weight: 700; letter-spacing: 0; text-transform: none;
-  text-shadow: 1px 1px 1px rgba(0,0,0,.85); border-radius: 0; font-family: inherit; font-size: 12px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.85); border-radius: 0; font-family: inherit; font-size: 13px;
 }
 body.win98 .icon .sub { color: #c8c8c8; font-weight: 700; }
 body.win98 .icon:hover { background: transparent; }
@@ -134,31 +134,31 @@ body.win98 .form .submit:active, body.win98 .editorial-cta:active {
 /* ===================== TASKBAR ===================== */
 #taskbar { display: none; }
 body.win98 #taskbar {
-  display: flex; position: fixed; left: 0; right: 0; bottom: 0; height: 33px; z-index: 5000;
-  align-items: center; gap: 4px; padding: 2px 3px; background: var(--face);
+  display: flex; position: fixed; left: 0; right: 0; bottom: 0; height: 42px; z-index: 5000;
+  align-items: center; gap: 4px; padding: 3px 4px; background: var(--face);
   box-shadow: inset 0 1px var(--hi), inset 0 2px var(--hi2);
-  font-family: Tahoma, "MS Sans Serif", sans-serif; font-size: 12px; color: #000;
+  font-family: Tahoma, "MS Sans Serif", sans-serif; font-size: 13px; color: #000;
 }
-#startBtn { height: 29px; display: flex; align-items: center; gap: 7px; padding: 2px 16px 2px 8px; font-weight: 700; font-size: 15px; color: var(--pink-ink);
+#startBtn { height: 36px; display: flex; align-items: center; gap: 8px; padding: 2px 20px 2px 10px; font-weight: 700; font-size: 18px; color: var(--pink-ink);
   background: var(--face); box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
-#startBtn .heart { width: 21px; height: 21px; }
+#startBtn .heart { width: 25px; height: 25px; }
 #startBtn.open { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi), inset 2px 2px var(--lo), inset -2px -2px var(--hi2); }
-.tb-div { width: 0; border-left: 1px solid var(--lo); border-right: 1px solid var(--hi); height: 22px; margin: 0 2px; }
+.tb-div { width: 0; border-left: 1px solid var(--lo); border-right: 1px solid var(--hi); height: 30px; margin: 0 3px; }
 .tb-tasks { flex: 1; display: flex; align-items: center; gap: 3px; overflow: hidden; }
-.tb-task { height: 23px; min-width: 140px; max-width: 170px; display: flex; align-items: center; gap: 5px; padding: 0 7px; font-weight: 400; text-align: left; color: #000;
+.tb-task { height: 32px; min-width: 150px; max-width: 180px; display: flex; align-items: center; gap: 6px; padding: 0 9px; font-weight: 400; font-size: 13px; text-align: left; color: #000;
   background: var(--face); box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
-.tb-task .ic { width: 15px; height: 15px; flex: 0 0 auto; display: grid; place-items: center; }
-.tb-task .ic svg { width: 15px; height: 15px; }
+.tb-task .ic { width: 18px; height: 18px; flex: 0 0 auto; display: grid; place-items: center; }
+.tb-task .ic svg { width: 18px; height: 18px; }
 .tb-task span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tb-task.active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi), inset 2px 2px var(--lo), inset -2px -2px var(--hi2); font-weight: 700; }
-.tb-tray { height: 23px; display: flex; align-items: center; gap: 6px; padding: 0 9px; box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
-.tb-tray .heart { width: 13px; height: 13px; }
-#trayClock { font-size: 12px; font-variant-numeric: tabular-nums; color: #000; }
+.tb-tray { height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 12px; box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
+.tb-tray .heart { width: 16px; height: 16px; }
+#trayClock { font-size: 14px; font-variant-numeric: tabular-nums; color: #000; }
 
 /* ===================== START MENU ===================== */
 #startMenu { display: none; }
 body.win98 #startMenu.open {
-  display: flex; position: fixed; left: 3px; bottom: 33px; z-index: 5001; width: 308px;
+  display: flex; position: fixed; left: 3px; bottom: 42px; z-index: 5001; width: 308px;
   background: var(--face); padding: 3px;
   box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
 }
@@ -187,7 +187,7 @@ body.win98 #startMenu.open {
 body.win98 .win-heading::before { display: none; content: none; }
 body.win98 .win-ico { display: block; width: 15px; height: 15px; image-rendering: pixelated; object-fit: contain; }
 body.win98 #startMenu .mi .ic img, body.win98 #startMenu .mi .ic svg { width: 30px; height: 30px; image-rendering: pixelated; }
-body.win98 .tb-task .ic img, body.win98 .tb-task .ic svg { width: 16px; height: 16px; image-rendering: pixelated; }
+body.win98 .tb-task .ic img, body.win98 .tb-task .ic svg { width: 18px; height: 18px; image-rendering: pixelated; }
 
 body.win98 .folder-view { box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
 body.win98 .folder-item:hover { background: var(--pink-ink); color: #fff; }
@@ -216,13 +216,16 @@ body.win98 .sol-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1
   body.win98 .icon[data-id="faq"] .glyph,
   body.win98 .icon[data-id="blogfolder"] .glyph { width: 46px; height: 46px; }
   body.win98 .icon[data-id="snake"] .glyph { width: auto; height: 74px; }
-  body.win98 #taskbar { height: 34px; gap: 2px; }
-  body.win98 #startBtn { padding: 2px 8px 2px 4px; }
+  body.win98 #taskbar { height: 38px; gap: 2px; }
+  body.win98 #startBtn { height: 30px; font-size: 15px; padding: 2px 10px 2px 6px; }
+  body.win98 #startBtn .heart { width: 21px; height: 21px; }
   body.win98 .tb-tasks { overflow-x: auto; }
-  body.win98 .tb-task { min-width: 0; max-width: 46px; padding: 0 8px; }
+  body.win98 .tb-task { min-width: 0; max-width: 46px; height: 28px; padding: 0 8px; }
   body.win98 .tb-task span:last-child { display: none; }   /* icon-only tasks on phones */
-  body.win98 .tb-tray { padding: 0 6px; }
-  body.win98 #startMenu.open { width: min(308px, calc(100vw - 12px)); }
+  body.win98 .tb-tray { height: 28px; padding: 0 6px; }
+  body.win98 #trayClock { font-size: 12px; }
+  body.win98 .desktop { inset: 0 0 38px 0; }
+  body.win98 #startMenu.open { width: min(308px, calc(100vw - 12px)); bottom: 38px; }
   body.win98 .win-title { max-width: 44vw; }
 }
 
