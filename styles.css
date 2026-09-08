@@ -372,7 +372,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 
 /* Snake */
 .snake { padding: 6px; display: flex; flex-direction: column; align-items: center; gap: 7px; }
-.snake-bar { display: flex; align-items: center; justify-content: center; gap: 12px; width: 260px; }
+.snake-bar { display: flex; align-items: center; justify-content: center; gap: 12px; width: 320px; }
 .snake-btn { padding: 3px 12px; font-size: 12px; }
 .snake-score { font-size: 12px; font-weight: 700; color: #7a3b63; }
 .snake-canvas { display: block; image-rendering: pixelated; outline: none; touch-action: none; }
@@ -381,7 +381,7 @@ body.win98 .snake-canvas { box-shadow: inset 1px 1px var(--lo), inset -1px -1px 
 body.win98 .snake-btn { background: var(--face); color: var(--pink-ink); border: 0; box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
 body.win98 .snake-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi); }
 /* Snake high-score board */
-.snake-scores { width: 260px; }
+.snake-scores { width: 320px; }
 .hs-title { text-align: center; font-size: 12px; font-weight: 700; color: #7a3b63; margin: 4px 0 6px; letter-spacing: .08em; }
 .snake-scores ol { list-style: none; margin: 0; padding: 0; max-height: 176px; overflow: auto; }
 .snake-scores li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center; font-size: 12px; padding: 3px 8px; }
@@ -390,7 +390,7 @@ body.win98 .snake-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px 
 .hs-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hs-score { font-weight: 700; color: #7a3b63; }
 .hs-empty { text-align: center; color: rgba(61,34,51,.55); font-size: 12px; padding: 8px; }
-.snake-entry { display: flex; gap: 6px; align-items: center; width: 260px; justify-content: center; }
+.snake-entry { display: flex; gap: 6px; align-items: center; width: 320px; justify-content: center; }
 .snake-entry[hidden] { display: none; }
 .snake-scores li.hs-empty { display: block; grid-column: 1 / -1; }
 .se-label { font-size: 12px; font-weight: 700; color: #d81b7a; }

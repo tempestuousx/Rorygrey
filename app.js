@@ -509,7 +509,7 @@ const APPS = {
   gallery: { tag: "§ Photos", title: "Gallery", num: "▦", w: 860, h: 660, render: renderGallery, onMount: mountGallery },
   rates: { tag: "§ Stocks", title: "Rates", num: "02", w: 620, h: 640, render: renderRates },
   blogfolder: { tag: "§ The Journal", title: "Blog Posts", num: "", w: 560, h: 440, render: () => renderFolder("blogfolder"), contents: [] },
-  snake: { tag: "§ Games", title: "Snake", num: "", w: 280, h: 600, render: renderSnake, onMount: mountSnake },
+  snake: { tag: "§ Games", title: "Snake", num: "", w: 344, h: 640, render: renderSnake, onMount: mountSnake },
 };
 Object.keys(BLOG).forEach((k) => {
   APPS["blog:" + k] = { tag: "§ The Journal", title: BLOG[k].title, num: "", w: 680, h: 640, render: () => renderArticle(BLOG[k]) };
@@ -1011,7 +1011,7 @@ async function submitScore(name, score) {
 
 function renderSnake() {
   return `<div class="snake">
-    <canvas class="snake-canvas" width="260" height="290" tabindex="0"></canvas>
+    <canvas class="snake-canvas" width="320" height="350" tabindex="0"></canvas>
     <div class="snake-bar"><button class="snake-btn" data-role="new">New Game</button></div>
     <div class="snake-entry" hidden><span class="se-label">New high score!</span><input maxlength="12" placeholder="Your name" data-role="name"><button class="snake-btn" data-role="save">Save</button></div>
     <div class="snake-hint">Swipe or arrow keys · 3 lives</div>
@@ -1020,7 +1020,7 @@ function renderSnake() {
 }
 function mountSnake(node) {
   const cv = node.querySelector("canvas"), ctx = cv.getContext("2d");
-  const N = 20, CELL = 13, HEADER = 30, W = N * CELL, PLAY = N * CELL;
+  const N = 20, CELL = 16, HEADER = 30, W = N * CELL, PLAY = N * CELL;
   const SCREEN = "#2b1626", INK = "#f4a6d0", DIM = "rgba(244,166,208,.26)", GRID = "rgba(244,166,208,.20)";
   const rand = (n) => Math.floor(Math.random() * n);
   const entry = node.querySelector(".snake-entry");
