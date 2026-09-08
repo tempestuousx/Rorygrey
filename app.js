@@ -549,7 +549,9 @@ function openApp(id) {
   const topMin = win98 ? 6 : 40;
   const bottomReserve = win98 ? 38 : 96;
   const availH = vh - topMin - bottomReserve;
-  const width = Math.min(app.w, vw - (compact ? 12 : 20));
+  let width = Math.min(app.w, vw - (compact ? 12 : 20));
+  // On phones the Paint portrait would otherwise fill the screen — keep it a modest window.
+  if (compact && app.cls === "paint") width = Math.min(width, Math.round(vw * 0.72));
 
   const node = el(`<section class="window" role="dialog" aria-label="${esc(app.title)}" tabindex="-1"
       style="left:-9999px;top:${topMin}px;width:${width}px">
@@ -591,8 +593,10 @@ function openApp(id) {
 
   // size the window to fit its content (unless the app requests a fixed frame)
   const frame = node.offsetHeight - body.offsetHeight;   // titlebar + window chrome
-  const winH = app.fixed ? Math.min(app.h, availH)
-                         : Math.min(Math.max(body.scrollHeight + frame, 130), availH);
+  let winH = app.fixed ? Math.min(app.h, availH)
+                       : Math.min(Math.max(body.scrollHeight + frame, 130), availH);
+  // Paint's frame is the artwork itself — keep the window in the picture's aspect ratio.
+  if (app.cls === "paint") winH = Math.min(Math.round(width * 4 / 3), availH);
   node.style.height = winH + "px";
 
   // centre, stagger, and clamp within the workspace
