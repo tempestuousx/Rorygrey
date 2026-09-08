@@ -1,0 +1,256 @@
+/* ==========================================================================
+   Pink retro "Windows" skin — overrides styles.css when <body class="win98">.
+   Flat pink desktop, pink beveled windows/taskbar, editorial content on white.
+   No gradients on the wallpaper. Rory Grey's real names/content throughout.
+   ========================================================================== */
+
+body.win98 {
+  font-family: Tahoma, "MS Sans Serif", Geneva, Verdana, sans-serif;
+  font-size: 12px; color: #000; background: #2b2930;
+
+  /* classic Windows silver bevel palette */
+  --face:   #c0c0c0;
+  --hi:     #ffffff;
+  --hi2:    #dfdfdf;
+  --lo:     #808080;
+  --lo2:    #0a0a0a;
+  --title:  #000080;         /* navy title bar (gradient applied on .titlebar) */
+  --title-ina: #7f7f8c;
+  --pink-ink: #000000;       /* button / label text on silver */
+
+  /* content accent: cherry / lipstick red (restrained rock-and-roll pop) */
+  --accent: #c8102e;
+  --up: #c8102e;
+
+  /* editorial content sits on white */
+  --paper:   #ffffff;
+  --paper-2: #f4f4f4;
+  --paper-3: #e8e8e8;
+
+  /* pixel file-icon palette (consumed by docIcon SVGs) — neutral w/ red accent */
+  --doc-paper: #f7f5f0;
+  --doc-line:  #2a2a2a;
+  --doc-line2: #a8a8a8;
+  --doc-accent:#c8102e;
+  --doc-fold:  #d7d3c8;
+  --doc-tint:  #e9e6dd;
+}
+
+/* --- hide the macOS chrome --- */
+body.win98 .menubar { display: none; }
+body.win98 .dock { display: none; }
+body.win98 .wallmark { display: none; }
+
+/* --- desktop: flat pink, taskbar reserves the bottom --- */
+body.win98 .desktop { inset: 0 0 33px 0; background: #2b2930; }
+body.win98 .desktop::before, body.win98 .desktop::after { display: none; content: none; }
+
+/* --- desktop icons: start in a tidy vertical column (arranged by app.js,
+       wrapping into more columns as space allows) and are freely draggable.
+       Same behaviour on phones — the compact grid is overridden below. --- */
+body.win98 .icon-layer { position: absolute; inset: 0; }
+body.win98 .icon { width: 104px; gap: 8px; padding: 8px 6px; }
+body.win98.compact .icon-layer { display: block; inset: 0; }
+body.win98.compact .icon { position: absolute !important; width: 96px; }
+body.win98 .icon .glyph { width: 58px; height: 58px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(1px 1px 0 rgba(0,0,0,.35)); }
+body.win98 .icon .label {
+  color: #fff; font-weight: 700; letter-spacing: 0; text-transform: none;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.85); border-radius: 0; font-family: inherit; font-size: 13px;
+}
+body.win98 .icon .sub { color: #c8c8c8; font-weight: 700; }
+body.win98 .icon:hover { background: transparent; }
+body.win98 .icon.selected { background: transparent; border-color: transparent; }
+body.win98 .icon.selected .label { background: #000080; color: #fff; outline: 1px dotted #fff; outline-offset: -2px; text-shadow: none; }
+body.win98 .icon.dragging { background: transparent; border-color: transparent; box-shadow: none; }
+
+/* --- windows: pink face, raised bevel --- */
+body.win98 .window {
+  background: var(--face); border: 0; border-radius: 0; padding: 3px;
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
+}
+body.win98 .window.inactive {
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
+}
+
+/* title bar: flat pink, white bold title, little icon on the left */
+body.win98 .titlebar {
+  height: auto; min-height: 22px; padding: 3px 3px 3px 4px; gap: 5px; border: 0;
+  background: linear-gradient(90deg, #000080, #1084d0); color: #fff;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+body.win98 .window.inactive .titlebar { background: linear-gradient(90deg, #7f7f8c, #b4b4c0); }
+body.win98 .win-heading { order: 1; flex-direction: row; align-items: center; gap: 5px; }
+body.win98 .win-heading::before { content: ""; width: 15px; height: 15px; flex: 0 0 auto;
+  background: var(--face); box-shadow: inset -1px -1px var(--lo), inset 1px 1px var(--hi); }
+body.win98 .win-tag { display: none; }
+body.win98 .win-title { color: #fff; font-weight: 700; letter-spacing: 0; text-transform: none; font-family: inherit; font-size: 12px; }
+body.win98 .window.inactive .win-title { color: #fbeaf3; }
+body.win98 .titlebar .spacer { order: 2; }
+body.win98 .win-num { display: none; }
+
+/* min / max / close as raised square buttons, on the right */
+body.win98 .win-controls { order: 3; gap: 2px; }
+body.win98 .win-dot {
+  width: 17px; height: 15px; border-radius: 0; border: 0; background: var(--face); color: var(--pink-ink); font-size: 0;
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
+}
+body.win98 .win-controls:hover .win-dot { color: var(--pink-ink); }
+body.win98 .win-dot::after { font-size: 10px; line-height: 1; color: var(--pink-ink); font-weight: 700; }
+body.win98 .win-dot.min  { order: 1; }
+body.win98 .win-dot.min::after  { content: "▁"; position: relative; top: -2px; }
+body.win98 .win-dot.zoom { order: 2; }
+body.win98 .win-dot.zoom::after { content: "❐"; font-weight: 400; }
+body.win98 .win-dot.close { order: 3; margin-left: 2px; }
+body.win98 .win-dot.close::after { content: "✕"; font-size: 9px; }
+body.win98 .win-dot:active {
+  box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi), inset 2px 2px var(--lo), inset -2px -2px var(--hi2);
+}
+
+/* chunky pink scrollbars */
+body.win98 .win-body { scrollbar-color: var(--face) #dfdfdf; }
+body.win98 .win-body::-webkit-scrollbar { width: 16px; height: 16px; }
+body.win98 .win-body::-webkit-scrollbar-track { background: #dfdfdf; }
+body.win98 .win-body::-webkit-scrollbar-thumb {
+  background: var(--face); border: 0; border-radius: 0;
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
+}
+
+/* form controls themed pink-98 (sunken white fields, raised pink buttons) */
+body.win98 .form input, body.win98 .form select, body.win98 .form textarea {
+  border: 0; border-radius: 0; background: #fff; font-family: Tahoma, sans-serif; font-size: 12px; color: #000;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px var(--lo), inset -2px -2px var(--hi2), inset 2px 2px var(--lo2);
+}
+body.win98 .form input:focus, body.win98 .form select:focus, body.win98 .form textarea:focus { outline: 1px dotted var(--pink-ink); outline-offset: 1px; }
+body.win98 .form fieldset { border: 0; box-shadow: inset -1px -1px #fff, inset 1px 1px var(--lo); padding: 12px 16px; }
+body.win98 .form .submit, body.win98 .editorial-cta {
+  background: var(--face); color: var(--pink-ink); border: 0; border-radius: 0;
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
+}
+body.win98 .form .submit:hover, body.win98 .editorial-cta:hover { background: var(--face); color: var(--pink-ink); }
+body.win98 .form .submit:active, body.win98 .editorial-cta:active {
+  box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi), inset 2px 2px var(--lo), inset -2px -2px var(--hi2);
+}
+
+/* ===================== TASKBAR ===================== */
+#taskbar { display: none; }
+body.win98 #taskbar {
+  display: flex; position: fixed; left: 0; right: 0; bottom: 0; height: 33px; z-index: 5000;
+  align-items: center; gap: 4px; padding: 2px 3px; background: var(--face);
+  box-shadow: inset 0 1px var(--hi), inset 0 2px var(--hi2);
+  font-family: Tahoma, "MS Sans Serif", sans-serif; font-size: 12px; color: #000;
+}
+#startBtn { height: 29px; display: flex; align-items: center; gap: 7px; padding: 2px 16px 2px 8px; font-weight: 700; font-size: 15px; color: var(--pink-ink);
+  background: var(--face); box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
+#startBtn .heart { width: 21px; height: 21px; }
+#startBtn.open { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi), inset 2px 2px var(--lo), inset -2px -2px var(--hi2); }
+.tb-div { width: 0; border-left: 1px solid var(--lo); border-right: 1px solid var(--hi); height: 22px; margin: 0 2px; }
+.tb-tasks { flex: 1; display: flex; align-items: center; gap: 3px; overflow: hidden; }
+.tb-task { height: 23px; min-width: 140px; max-width: 170px; display: flex; align-items: center; gap: 5px; padding: 0 7px; font-weight: 400; text-align: left; color: #000;
+  background: var(--face); box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
+.tb-task .ic { width: 15px; height: 15px; flex: 0 0 auto; display: grid; place-items: center; }
+.tb-task .ic svg { width: 15px; height: 15px; }
+.tb-task span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tb-task.active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi), inset 2px 2px var(--lo), inset -2px -2px var(--hi2); font-weight: 700; }
+.tb-tray { height: 23px; display: flex; align-items: center; gap: 6px; padding: 0 9px; box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
+.tb-tray .heart { width: 13px; height: 13px; }
+#trayClock { font-size: 12px; font-variant-numeric: tabular-nums; color: #000; }
+
+/* ===================== START MENU ===================== */
+#startMenu { display: none; }
+body.win98 #startMenu.open {
+  display: flex; position: fixed; left: 3px; bottom: 33px; z-index: 5001; width: 300px;
+  background: var(--face); padding: 3px;
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
+}
+#startMenu .sidebar {
+  width: 40px; flex: 0 0 auto; background: var(--title); color: #fff;
+  writing-mode: vertical-rl; transform: rotate(180deg); text-align: left; padding: 14px 9px;
+  font-weight: 700; font-size: 19px; letter-spacing: 2px;
+}
+#startMenu .sidebar span { color: #ffcbe6; font-weight: 400; }
+#startMenu .items { flex: 1; display: flex; flex-direction: column; padding: 3px; }
+#startMenu .mi { display: flex; align-items: center; gap: 12px; padding: 9px 12px; text-align: left; font-size: 15px; color: #000; }
+#startMenu .mi .ic { width: 30px; height: 30px; flex: 0 0 auto; display: grid; place-items: center; }
+#startMenu .mi .ic svg { width: 28px; height: 28px; }
+#startMenu .mi:hover { background: var(--pink-ink); color: #fff; }
+#startMenu .sep { height: 2px; margin: 4px 5px; border-top: 1px solid var(--lo); border-bottom: 1px solid var(--hi); }
+
+/* ===================== SHUT DOWN screen ===================== */
+#shutdown {
+  position: fixed; inset: 0; z-index: 9999; background: #1a0d16; color: #ffb0d8; cursor: pointer;
+  display: grid; place-items: center; text-align: center; font-family: Tahoma, sans-serif;
+  font-size: clamp(18px, 3vw, 26px); letter-spacing: 1px; line-height: 1.7;
+}
+#shutdown small { display: block; margin-top: 26px; color: #8a5a73; font-size: 13px; letter-spacing: .3em; }
+
+/* ===================== pixel icons / folders / games in pink theme ===================== */
+body.win98 .win-heading::before { display: none; content: none; }
+body.win98 .win-ico { display: block; width: 15px; height: 15px; image-rendering: pixelated; object-fit: contain; }
+body.win98 #startMenu .mi .ic img, body.win98 #startMenu .mi .ic svg { width: 28px; height: 28px; image-rendering: pixelated; }
+body.win98 .tb-task .ic img, body.win98 .tb-task .ic svg { width: 16px; height: 16px; image-rendering: pixelated; }
+
+body.win98 .folder-view { box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
+body.win98 .folder-item:hover { background: var(--pink-ink); color: #fff; }
+body.win98 .folder-status { color: #6b3b5a; box-shadow: inset 1px 1px var(--lo); }
+
+body.win98 .mine { background: var(--face); }
+body.win98 .mine-head { box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
+body.win98 .mine-lcd { box-shadow: inset 1px 1px #000; }
+body.win98 .mine-face { background: var(--face); box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
+body.win98 .mine-face:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi); }
+body.win98 .mine-grid { background: var(--face); padding: 3px; margin: 0 auto; box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
+body.win98 .mcell { background: var(--face); box-shadow: inset -1px -1px var(--lo), inset 1px 1px var(--hi), inset -2px -2px var(--lo2), inset 2px 2px var(--hi2); }
+body.win98 .mcell.open { box-shadow: none; border: 1px solid var(--lo); }
+
+body.win98 .sol-btn { background: var(--face); color: var(--pink-ink); border: 0; box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
+body.win98 .sol-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi); }
+
+/* ===================== MOBILE ===================== */
+@media (max-width: 720px) {
+  body.win98 .icon { width: 96px; padding: 6px 4px; }
+  body.win98 .icon .glyph { width: 52px; height: 52px; }
+  body.win98 .icon .label { font-size: 12px; }
+  body.win98 #taskbar { height: 34px; gap: 2px; }
+  body.win98 #startBtn { padding: 2px 8px 2px 4px; }
+  body.win98 .tb-tasks { overflow-x: auto; }
+  body.win98 .tb-task { min-width: 0; max-width: 46px; padding: 0 8px; }
+  body.win98 .tb-task span:last-child { display: none; }   /* icon-only tasks on phones */
+  body.win98 .tb-tray { padding: 0 6px; }
+  body.win98 #startMenu.open { width: min(300px, calc(100vw - 12px)); }
+  body.win98 .win-title { max-width: 44vw; }
+}
+
+/* ===================== Rory Paint window (chromeless — uses the artwork's own painted title bar) ===================== */
+body.win98 .window.paint { padding: 0; border: 0; border-radius: 0; background: transparent; overflow: visible;
+  min-width: 0; min-height: 0;
+  box-shadow: 2px 2px 0 rgba(0,0,0,.35), 5px 5px 16px rgba(0,0,0,.45); }
+body.win98 .window.paint .win-heading,
+body.win98 .window.paint .win-num,
+body.win98 .window.paint .titlebar .spacer { display: none; }
+/* transparent drag strip laid over the painted title bar */
+body.win98 .window.paint .titlebar { position: absolute; top: 0; left: 0; right: 0; height: 22px; min-height: 0;
+  margin: 0; padding: 0; background: transparent; border: 0; backdrop-filter: none; -webkit-backdrop-filter: none; z-index: 4; cursor: grab; }
+body.win98 .window.paint .titlebar.grabbing { cursor: grabbing; }
+/* invisible min/max/close hotspots over the painted buttons (top-right) */
+body.win98 .window.paint .win-controls { position: absolute; top: 1px; right: 3px; height: 20px; gap: 1px; }
+body.win98 .window.paint .win-dot { width: 20px; height: 18px; background: transparent !important; box-shadow: none !important;
+  border: 0; border-radius: 0; color: transparent !important; }
+body.win98 .window.paint .win-dot::after { content: none !important; }
+body.win98 .window.paint .win-dot.zoom { pointer-events: none; }   /* maximize is inert for the portrait */
+body.win98 .window.paint .win-body { padding: 0; margin: 0; overflow: hidden; background: transparent; }
+body.win98 .window.paint .paint-img { display: block; width: 100%; height: auto; -webkit-user-drag: none; user-select: none; }
+
+/* ===================== classic dialog (RORY.EXE) ===================== */
+.dialog98 { position: fixed; z-index: 5600; width: 300px; background: var(--face); padding: 3px;
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2), 3px 3px 14px rgba(0,0,0,.55);
+  font-family: Tahoma, "MS Sans Serif", sans-serif; }
+.dialog98 .dlg-title { display: flex; align-items: center; justify-content: space-between; height: 22px; padding: 0 3px 0 6px;
+  background: linear-gradient(90deg, #000080, #1084d0); color: #fff; font-weight: 700; font-size: 12px; cursor: grab; }
+.dialog98 .dlg-x { width: 17px; height: 15px; font-size: 9px; color: #000; background: var(--face);
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
+.dialog98 .dlg-body { padding: 18px 16px 14px; }
+.dialog98 .dlg-text { font-size: 13px; color: #000; margin: 0 0 18px; text-align: center; }
+.dialog98 .dlg-btns { display: flex; justify-content: center; gap: 12px; }
+.dialog98 .dlg-btn { min-width: 76px; height: 24px; font-size: 12px; color: #000; background: var(--face);
+  box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2); }
+.dialog98 .dlg-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1px var(--hi), inset 2px 2px var(--lo), inset -2px -2px var(--hi2); }
