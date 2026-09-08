@@ -18,7 +18,7 @@ const CONFIG = {
   FIREBASE_API_KEY: "AIzaSyC4znHAuzGRVq4oiI6CjqGCHyaVvkDi784",
 };
 
-const PHOTOS = Array.from({ length: 24 }, (_, i) => `photos/rg-${String(i + 1).padStart(2, "0")}.jpg`);
+const PHOTOS = Array.from({ length: 20 }, (_, i) => `photos/rg-${String(i + 1).padStart(2, "0")}.jpg`);
 
 /* Retro pixel icons (icons/*.png) mapped to Rory's items */
 const ICON_PNG = {
