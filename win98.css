@@ -158,20 +158,20 @@ body.win98 #taskbar {
 /* ===================== START MENU ===================== */
 #startMenu { display: none; }
 body.win98 #startMenu.open {
-  display: flex; position: fixed; left: 3px; bottom: 33px; z-index: 5001; width: 270px;
+  display: flex; position: fixed; left: 3px; bottom: 33px; z-index: 5001; width: 308px;
   background: var(--face); padding: 3px;
   box-shadow: inset -1px -1px var(--lo2), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--hi2);
 }
 #startMenu .sidebar {
-  width: 36px; flex: 0 0 auto; background: var(--title); color: #fff;
-  writing-mode: vertical-rl; transform: rotate(180deg); text-align: left; padding: 13px 8px;
-  font-weight: 700; font-size: 17px; letter-spacing: 2px;
+  width: 42px; flex: 0 0 auto; background: var(--title); color: #fff;
+  writing-mode: vertical-rl; transform: rotate(180deg); text-align: left; padding: 15px 9px;
+  font-weight: 700; font-size: 20px; letter-spacing: 2px;
 }
 #startMenu .sidebar span { color: #ffcbe6; font-weight: 400; }
 #startMenu .items { flex: 1; display: flex; flex-direction: column; padding: 2px; }
-#startMenu .mi { display: flex; align-items: center; gap: 11px; padding: 7px 11px; text-align: left; font-size: 14px; color: #000; }
-#startMenu .mi .ic { width: 28px; height: 28px; flex: 0 0 auto; display: grid; place-items: center; }
-#startMenu .mi .ic svg { width: 26px; height: 26px; }
+#startMenu .mi { display: flex; align-items: center; gap: 13px; padding: 10px 14px; text-align: left; font-size: 16px; color: #000; }
+#startMenu .mi .ic { width: 32px; height: 32px; flex: 0 0 auto; display: grid; place-items: center; }
+#startMenu .mi .ic svg { width: 30px; height: 30px; }
 #startMenu .mi:hover { background: var(--pink-ink); color: #fff; }
 #startMenu .sep { height: 2px; margin: 4px 5px; border-top: 1px solid var(--lo); border-bottom: 1px solid var(--hi); }
 
@@ -186,7 +186,7 @@ body.win98 #startMenu.open {
 /* ===================== pixel icons / folders / games in pink theme ===================== */
 body.win98 .win-heading::before { display: none; content: none; }
 body.win98 .win-ico { display: block; width: 15px; height: 15px; image-rendering: pixelated; object-fit: contain; }
-body.win98 #startMenu .mi .ic img, body.win98 #startMenu .mi .ic svg { width: 26px; height: 26px; image-rendering: pixelated; }
+body.win98 #startMenu .mi .ic img, body.win98 #startMenu .mi .ic svg { width: 30px; height: 30px; image-rendering: pixelated; }
 body.win98 .tb-task .ic img, body.win98 .tb-task .ic svg { width: 16px; height: 16px; image-rendering: pixelated; }
 
 body.win98 .folder-view { box-shadow: inset 1px 1px var(--lo), inset -1px -1px var(--hi); }
@@ -222,7 +222,7 @@ body.win98 .sol-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1
   body.win98 .tb-task { min-width: 0; max-width: 46px; padding: 0 8px; }
   body.win98 .tb-task span:last-child { display: none; }   /* icon-only tasks on phones */
   body.win98 .tb-tray { padding: 0 6px; }
-  body.win98 #startMenu.open { width: min(270px, calc(100vw - 12px)); }
+  body.win98 #startMenu.open { width: min(308px, calc(100vw - 12px)); }
   body.win98 .win-title { max-width: 44vw; }
 }
 
