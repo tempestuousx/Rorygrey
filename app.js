@@ -499,7 +499,7 @@ function renderPaint() {
 
 /* --- App registry --- */
 const APPS = {
-  paint: { tag: "", title: "untitled - Paint", num: "", w: 423, h: 564, render: renderPaint, fixed: true, cls: "paint" },
+  paint: { tag: "", title: "untitled - Paint", num: "", w: 486, h: 648, render: renderPaint, fixed: true, cls: "paint" },
   passwords: { tag: "§ System", title: "Passwords.txt", num: "", w: 504, h: 548, render: renderPasswords, fixed: true },
   env: { tag: "§ System", title: ".env", num: "", w: 504, h: 548, render: renderEnv, fixed: true },
   finalfinal: { tag: "§ Image", title: "Final_Final_REAL_Final_v7.jpg", num: "▦", w: 460, h: 560, render: renderFinalFinal, onMount: mountFinalFinal, fixed: true },
@@ -1392,16 +1392,13 @@ openApp("paint");
   const pw = openWindows.get("paint"); if (!pw) return;
   const vw = window.innerWidth, vh = window.innerHeight;
   const w = pw.node.offsetWidth, h = pw.node.offsetHeight;
-  if (document.body.classList.contains("compact")) {
-    // On phones, tuck the portrait into the lower-right corner, clear of the icons.
-    const bottomReserve = document.body.classList.contains("win98") ? 42 : 96;
-    pw.node.style.left = Math.max(8, vw - w - 8) + "px";
-    pw.node.style.top = Math.max(8, vh - bottomReserve - h - 8) + "px";
-  } else {
-    let left = Math.round(vw / 2 - w / 2 + vw * 0.11);   // a little right of centre
-    left = Math.max(8, Math.min(left, vw - w - 8));
-    pw.node.style.left = left + "px";
-  }
+  // Tuck the portrait into the lower-right corner, clear of the icons, on all sizes.
+  const win98 = document.body.classList.contains("win98");
+  const compact = document.body.classList.contains("compact");
+  const bottomReserve = win98 ? (compact ? 42 : 48) : 96;
+  const margin = compact ? 8 : 12;
+  pw.node.style.left = Math.max(8, vw - w - margin) + "px";
+  pw.node.style.top = Math.max(8, vh - bottomReserve - h - margin) + "px";
 })();
 
 // Deter right-click / drag-save on photography
