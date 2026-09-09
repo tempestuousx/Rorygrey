@@ -12,10 +12,11 @@ const CONFIG = {
   // then paste its endpoint here (e.g. "https://formspree.io/f/abcdwxyz").
   // Until this is set, the form shows a "not connected yet" message instead of sending.
   FORM_ENDPOINT: "https://formspree.io/f/moearjqb",
-  // Global Snake leaderboard (Firebase Firestore). Paste your project id + web API key.
-  // Until both are set, the leaderboard falls back to per-browser local scores.
-  FIREBASE_PROJECT_ID: "rory-snake",
-  FIREBASE_API_KEY: "AIzaSyC4znHAuzGRVq4oiI6CjqGCHyaVvkDi784",
+  // Global Snake leaderboard (Firebase Firestore). Leave both blank to keep the
+  // leaderboard as per-browser local scores. Do NOT commit a real API key here —
+  // this file is public, so a key checked in can be read (and abused) by anyone.
+  FIREBASE_PROJECT_ID: "",
+  FIREBASE_API_KEY: "",
 };
 
 const PHOTOS = Array.from({ length: 20 }, (_, i) => `photos/rg-${String(i + 1).padStart(2, "0")}.jpg`);
