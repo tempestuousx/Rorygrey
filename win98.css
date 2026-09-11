@@ -215,7 +215,7 @@ body.win98 .sol-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1
   body.win98 .icon[data-id="etiquette"] .glyph,
   body.win98 .icon[data-id="faq"] .glyph,
   body.win98 .icon[data-id="blogfolder"] .glyph { width: 46px; height: 46px; }
-  body.win98 .icon[data-id="snake"] .glyph { width: auto; height: 74px; }
+  body.win98 .icon[data-id="snake"] .glyph { width: 78px; height: auto; max-height: 60px; }
   body.win98 #taskbar { height: 38px; gap: 2px; }
   body.win98 #startBtn { height: 30px; font-size: 15px; padding: 2px 10px 2px 6px; }
   body.win98 #startBtn .heart { width: 21px; height: 21px; }

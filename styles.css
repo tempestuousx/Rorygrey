@@ -467,10 +467,10 @@ body.compact .wallmark { bottom: auto; top: 40%; }
 /* ---- pixel icons, folders, and games (shared) ---- */
 .icon img.glyph { width: 54px; height: 54px; object-fit: contain; image-rendering: pixelated; filter: none; }
 .win-ico { display: none; }
-/* Snake desktop icon at 2x (the Nokia) */
+/* Snake desktop icon (landscape game screen) */
 .icon[data-id="snake"] { width: 116px; }
-.icon[data-id="snake"] .glyph, .icon[data-id="snake"] img.glyph { width: auto; height: 104px; max-width: 116px; object-fit: contain; }
-body.win98 .icon[data-id="snake"] .glyph { width: auto; height: 104px; }
+.icon[data-id="snake"] .glyph, .icon[data-id="snake"] img.glyph { width: 100px; height: auto; max-height: 80px; object-fit: contain; }
+body.win98 .icon[data-id="snake"] .glyph { width: 100px; height: auto; max-height: 80px; }
 /* these four icons a touch larger than the rest */
 body.win98 .icon[data-id="screening"] .glyph,
 body.win98 .icon[data-id="etiquette"] .glyph,
