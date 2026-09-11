@@ -62,11 +62,17 @@ function dolphinIcon(cls) {
     <path d="M10 50 L16 44 M16 44 h-4.5 M16 44 v4.5" stroke="#000" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`;
 }
+function xIcon(cls) {
+  return `<svg class="${cls || ""}" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="54" height="54" rx="10" fill="#000"/>
+    <path d="M15 14 L25.5 26 L15 40 h4.2 l8.4-11 8 11 H40 L28.7 24.8 L38.6 14 h-4.2 l-7.6 9.9 L23.6 14 Z" fill="#fff"/></svg>`;
+}
 function iconMarkup(id, cls) {
   if (id === "blogfolder" || id === "gamesfolder") return folderIcon(cls);
   if (id === "solitaire") return cardIcon(cls);
   if (id === "minesweeper") return mineIcon(cls);
   if (id === "dolphin") return dolphinIcon(cls);
+  if (id === "__x") return xIcon(cls);
   return `<img class="${cls || ""}" src="${pngFor(id)}" alt="" draggable="false">`;
 }
 

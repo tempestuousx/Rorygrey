@@ -248,7 +248,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .doc-head { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 26px;
   display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
 .doc-head .kicker { font-size: 10.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
-.doc-head h1 { font-family: var(--disp); font-size: clamp(38px, 6vw, 70px); text-transform: uppercase; letter-spacing: -.04em; line-height: .86; margin-top: 10px; }
+.doc-head h1 { font-family: var(--disp); font-size: clamp(30px, 4.6vw, 46px); text-transform: uppercase; letter-spacing: -.04em; line-height: .9; margin-top: 10px; }
 .doc-head .head-num { font-family: var(--disp); font-size: clamp(46px,9vw,110px); color: var(--paper-3); line-height: .7; letter-spacing: -.06em; }
 .lede { font-size: 18px; line-height: 1.45; margin-bottom: 22px; max-width: 56ch; }
 .doc p + p { margin-top: 15px; }
@@ -324,7 +324,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .gallery { padding: 22px; }
 .gallery-head { display:flex; align-items:baseline; justify-content:space-between; padding: 4px 8px 18px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
 .gallery-head .kicker { font-size: 10.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
-.gallery-head h1 { font-family: var(--disp); font-size: clamp(30px,4.4vw,52px); text-transform: uppercase; letter-spacing: -.03em; }
+.gallery-head h1 { font-family: var(--disp); font-size: clamp(26px,3.6vw,40px); text-transform: uppercase; letter-spacing: -.03em; }
 .gallery-head .count { font-size: 11px; letter-spacing: .14em; font-weight: 700; color: rgba(11,11,10,.5); }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
 .tile { position: relative; aspect-ratio: 3/4; overflow: hidden; border: 1px solid var(--line);
@@ -441,7 +441,7 @@ body.win98 .snake-entry input { border: 0; background: #fff; box-shadow: inset -
 .article { padding: 34px 44px 52px; max-width: 680px; }
 .article .back { font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
 .article .dispatch { font-size: 10px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: rgba(11,11,10,.45); margin-top: 22px; }
-.article h1 { font-family: var(--disp); font-size: clamp(34px,5.2vw,58px); text-transform: uppercase; letter-spacing: -.035em; line-height: .9; margin: 10px 0 12px; }
+.article h1 { font-family: var(--disp); font-size: clamp(28px,4.2vw,44px); text-transform: uppercase; letter-spacing: -.035em; line-height: .92; margin: 10px 0 12px; }
 .article .date { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(11,11,10,.5);
   border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 24px; }
 .article .body p { font-size: 16px; line-height: 1.62; max-width: 60ch; }
@@ -525,24 +525,24 @@ body.win98 .icon[data-id="blogfolder"] .glyph { width: 72px; height: 72px; }
 .doc, .article, .rates, .gallery, .form {
   font-family: "ABeeZee", "Segoe UI", Helvetica, Arial, sans-serif;
   --disp: "ABeeZee", "Segoe UI", Helvetica, Arial, sans-serif;
-  font-size: 16px; font-weight: 400;
+  font-size: 18px; font-weight: 400;
 }
 .doc h1, .doc-head h1, .article h1, .doc h2, .article .body h2,
 .gallery-head h1, .form legend {
   letter-spacing: 0; line-height: 1.06; font-weight: 700;
 }
 /* Advent Pro runs small + light: give body copy more size and weight */
-.doc p, .particulars p, .rules .body p, .methods .v.small { font-size: 16px; line-height: 1.6; letter-spacing: 0; }
-.article .body p { font-size: 17px; line-height: 1.62; letter-spacing: 0; }
-.lede { font-size: 20px; line-height: 1.5; letter-spacing: 0; font-weight: 500; }
+.doc p, .particulars p, .rules .body p, .methods .v.small { font-size: 18px; line-height: 1.6; letter-spacing: 0; }
+.article .body p { font-size: 19px; line-height: 1.62; letter-spacing: 0; }
+.lede { font-size: 22px; line-height: 1.5; letter-spacing: 0; font-weight: 500; }
 /* the small caps labels need a bump too */
 .doc .kicker, .doc-head .kicker, .article .dispatch, .article .date, .micro,
 .section-label .t, .rate-group h3 .t, .note-meta .k, .particulars .k, .methods .k,
 .rules summary .ttl, .gallery-head .kicker, .gallery-head .count, .form label span {
-  font-size: 12px; font-weight: 700;
+  font-size: 13.5px; font-weight: 700;
 }
-.rules summary .ttl { font-size: 14px; }
-.rate-line .lab { font-size: 15px; font-weight: 500; }
+.rules summary .ttl { font-size: 16px; }
+.rate-line .lab { font-size: 17px; font-weight: 500; }
 .section-label .n, .rate-group h3 .n, .rules summary .num { font-weight: 700; }
 .doc .pull, .article .pull, .doc blockquote, .article blockquote {
   font-family: "Zeyada", cursive;
