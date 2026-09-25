@@ -568,3 +568,10 @@ body.win98 .icon[data-id="blogfolder"] .glyph { width: 72px; height: 72px; }
   font: inherit; font-size: 13px; color: #fff; background: rgba(0,0,0,.45);
   border: 1px solid rgba(255,255,255,.5); border-radius: 4px; cursor: pointer; }
 .intro-skip:hover { background: rgba(0,0,0,.7); }
+.intro-seen .intro { display: none; }
+.intro-sound { position: absolute; left: 50%; bottom: 64px; transform: translateX(-50%);
+  padding: 12px 22px; font: inherit; font-size: 16px; color: #fff; background: rgba(0,0,0,.6);
+  border: 1px solid rgba(255,255,255,.7); border-radius: 6px; cursor: pointer;
+  animation: introPulse 1.6s ease-in-out infinite; }
+.intro-sound[hidden] { display: none; }
+@keyframes introPulse { 50% { opacity: .55; } }

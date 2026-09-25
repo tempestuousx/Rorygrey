@@ -1405,19 +1405,38 @@ openApp("paint");
 document.addEventListener("contextmenu", (e) => { if (e.target.closest("img")) e.preventDefault(); });
 document.addEventListener("dragstart", (e) => { if (e.target.closest("img")) e.preventDefault(); });
 
-/* Intro video: fade into the desktop when it ends (or is skipped) */
+/* Intro video: plays on the first visit only, then fades into the desktop */
 (function intro() {
   const box = document.getElementById("intro"), vid = document.getElementById("introVideo");
   if (!box || !vid) return;
+  if (document.documentElement.classList.contains("intro-seen")) { box.remove(); return; }
+  const soundBtn = document.getElementById("introSound");
   let done = false;
   const finish = () => {
     if (done) return; done = true;
+    try { localStorage.setItem("rg-intro-seen", "1"); } catch (e) {}
+    vid.pause();
     box.classList.add("intro-done");
     setTimeout(() => box.remove(), 900);
+  };
+  // Browsers may block sound until the visitor taps. Restart from the top with
+  // sound so they still hear the startup chime.
+  const withSound = () => {
+    soundBtn.hidden = true;
+    vid.muted = false; vid.currentTime = 0;
+    vid.play().catch(finish);
   };
   vid.addEventListener("ended", finish);
   vid.addEventListener("error", finish);
   document.getElementById("introSkip").addEventListener("click", finish);
-  const p = vid.play();
-  if (p && p.catch) p.catch(finish); // autoplay blocked: go straight to the desktop
+  soundBtn.addEventListener("click", withSound);
+  vid.addEventListener("click", () => { if (!soundBtn.hidden) withSound(); });
+
+  vid.muted = false;
+  vid.play().catch(() => {
+    // Sound blocked: play muted and offer the tap-for-sound button
+    vid.muted = true;
+    soundBtn.hidden = false;
+    vid.play().catch(finish);
+  });
 })();
