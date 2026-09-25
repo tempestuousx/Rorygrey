@@ -1404,3 +1404,20 @@ openApp("paint");
 // Deter right-click / drag-save on photography
 document.addEventListener("contextmenu", (e) => { if (e.target.closest("img")) e.preventDefault(); });
 document.addEventListener("dragstart", (e) => { if (e.target.closest("img")) e.preventDefault(); });
+
+/* Intro video: fade into the desktop when it ends (or is skipped) */
+(function intro() {
+  const box = document.getElementById("intro"), vid = document.getElementById("introVideo");
+  if (!box || !vid) return;
+  let done = false;
+  const finish = () => {
+    if (done) return; done = true;
+    box.classList.add("intro-done");
+    setTimeout(() => box.remove(), 900);
+  };
+  vid.addEventListener("ended", finish);
+  vid.addEventListener("error", finish);
+  document.getElementById("introSkip").addEventListener("click", finish);
+  const p = vid.play();
+  if (p && p.catch) p.catch(finish); // autoplay blocked: go straight to the desktop
+})();

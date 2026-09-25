@@ -400,7 +400,7 @@ body.win98 .snake-entry input { border: 0; background: #fff; box-shadow: inset -
 /* ---- Contact / Mail ---- */
 .mail-head { display:flex; align-items:center; gap: 14px; border-bottom: 1px solid var(--line); padding: 0 0 16px; margin-bottom: 22px; }
 .mail-avatar { width: 44px; height: 44px; border-radius: 50%; overflow:hidden; border: 1px solid var(--line); flex:0 0 auto; }
-.mail-avatar img { width:100%; height:100%; object-fit: cover; }
+.mail-avatar img { width:100%; height:100%; object-fit: contain; }
 .mail-from .n { font-weight: 700; letter-spacing: .06em; }
 .mail-from .e { font-size: 12px; color: rgba(11,11,10,.55); }
 .methods { display: grid; gap: 0; border: 1px solid var(--line); margin: 8px 0 24px; }
@@ -557,3 +557,14 @@ body.win98 .icon[data-id="blogfolder"] .glyph { width: 72px; height: 72px; }
 
 /* Desktop marquee (rubber-band) selection rectangle */
 .marquee { position: absolute; border: 1px dotted #d8d8d8; background: rgba(210,210,225,.14); pointer-events: none; z-index: 40; }
+
+/* Intro video overlay */
+.intro { position: fixed; inset: 0; z-index: 99999; background: #000;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .8s ease; }
+.intro video { width: 100%; height: 100%; object-fit: contain; }
+.intro.intro-done { opacity: 0; pointer-events: none; }
+.intro-skip { position: absolute; right: 16px; bottom: 16px; padding: 6px 14px;
+  font: inherit; font-size: 13px; color: #fff; background: rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.5); border-radius: 4px; cursor: pointer; }
+.intro-skip:hover { background: rgba(0,0,0,.7); }
