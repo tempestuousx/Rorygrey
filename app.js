@@ -7,7 +7,7 @@
 const CONFIG = {
   X_PROFILE_URL: "https://x.com/roryxgrey",   // Rory's X profile (opens in new tab)
   PHONE: "754-444-0974",
-  REVIEWS_URL: "https://privatedelights.ch/",
+  REVIEWS_URL: "https://privatedelights.ch/profile/RoryGrey",
   // Screening inquiry delivery. Create a free form at https://formspree.io,
   // then paste its endpoint here (e.g. "https://formspree.io/f/abcdwxyz").
   // Until this is set, the form shows a "not connected yet" message instead of sending.
@@ -26,7 +26,7 @@ const ICON_PNG = {
   about: "workspace", gallery: "camera", rates: "spreadsheet_program",
   screening: "sticky_note", etiquette: "text_editor", faq: "news",
   passwords: "password_manager", env: "script_file", finalfinal: "image_file",
-  __x: "x", snake: "snake", paint: "paint",
+  __x: "x", snake: "newsnake", paint: "paint", reviews: "reviews", aim: "aim",
 };
 function pngFor(id) {
   if (id && id.startsWith("blog:")) return "icons/text_file.png";
@@ -496,10 +496,86 @@ function mountFinalFinal(node) {
 function renderPaint() {
   return `<img class="paint-img" src="paint/rory-paint.jpg" alt="Rory — untitled - Paint" draggable="false">`;
 }
+// The bat perches on top of the Paint window. It goes on the window node itself,
+// because .win-body clips overflow.
+function mountPaint(node) {
+  node.insertAdjacentHTML("beforeend", `<img class="paint-bat" src="icons/bat.png" alt="" aria-hidden="true" draggable="false">`);
+}
+
+/* --- AIM: Y2K instant-message window. The conversation lives in memory, so
+   closing and reopening keeps it; the intro plays once per page load. --- */
+const AIM_SN = "RoryGrey";
+const aim = { log: [], node: null, introStarted: false, typing: false };
+const aimLink = (id, text) => `<a href="#" data-open="${id}">${text}</a>`;
+const aimSleep = (ms) => new Promise((r) => setTimeout(r, ms));
+function aimLineHTML(m) {
+  if (m.sys) return `<p class="aim-line aim-sys">${m.html}</p>`;
+  return `<p class="aim-line ${m.me ? "aim-you" : "aim-rory"}"><span class="aim-sn">${m.me ? "You" : AIM_SN}:</span> <span class="aim-txt">${m.html}</span></p>`;
+}
+function aimRender() {
+  const l = aim.node && aim.node.isConnected ? aim.node.querySelector(".aim-log") : null;
+  if (!l) return;
+  l.innerHTML = aim.log.map(aimLineHTML).join("") +
+    (aim.typing ? `<p class="aim-line aim-typing">${AIM_SN} is typing…</p>` : "");
+  l.scrollTop = l.scrollHeight;
+}
+function aimPush(m) { aim.log.push(m); aimRender(); }
+// Typing time scales with message length so longer lines feel actually typed.
+async function aimSay(html, typeMs) {
+  if (typeMs == null) typeMs = Math.min(1600 + html.replace(/<[^>]+>/g, "").length * 22, 4500);
+  aim.typing = true; aimRender();
+  await aimSleep(typeMs);
+  aim.typing = false; aimPush({ html });
+}
+async function aimIntro() {
+  aim.introStarted = true;
+  await aimSay("oh hi. don’t be alarmed, I live in the computer. 🙂");
+  await aimSay(`if you’re trying to figure out exactly what you’ve wandered into, ${aimLink("about", "About")}, ${aimLink("etiquette", "Etiquette")}, and ${aimLink("faq", "FAQ")} are great places to start.`);
+  await aimSay(`${aimLink("rates", "Rates")} has what you would expect. ${aimLink("screening", "Booking")} is there when you’re ready, and if you came all this way just to play ${aimLink("snake", "Snake")}, honestly, I respect it.`);
+}
+function renderAIM() {
+  return `<div class="aim-log" role="log" aria-live="polite"></div>
+    <form class="aim-form" autocomplete="off">
+      <input class="aim-input" name="message" type="text" maxlength="1000" placeholder="type a message…" aria-label="Message to Rory" required>
+      <button class="aim-send" type="submit">Send</button>
+    </form>`;
+}
+function mountAIM(node) {
+  aim.node = node;
+  aimRender();
+  if (!aim.introStarted) aimIntro();
+  const form = node.querySelector(".aim-form");
+  const input = form.querySelector(".aim-input");
+  const btn = form.querySelector(".aim-send");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text || btn.disabled) return;
+    aimPush({ me: true, html: esc(text) });
+    input.value = ""; btn.disabled = true;
+    try {
+      if (!CONFIG.FORM_ENDPOINT) throw new Error("no endpoint");
+      const fd = new FormData();
+      fd.append("message", text);
+      fd.append("source", "AIM chat");
+      fd.append("_subject", "New AIM message from the website");
+      const res = await fetch(CONFIG.FORM_ENDPOINT, { method: "POST", body: fd, headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error("bad status " + res.status);
+      await aimSay("got it ♡");
+      await aimSay("I’ll get back to you when I’m back at the keyboard.");
+    } catch (err) {
+      aimPush({ sys: true, html: "Message could not be sent. Please try again." });
+      input.value = text;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
 
 /* --- App registry --- */
 const APPS = {
-  paint: { tag: "", title: "untitled - Paint", num: "", w: 486, h: 648, render: renderPaint, fixed: true, cls: "paint" },
+  paint: { tag: "", title: "untitled - Paint", num: "", w: 243, h: 324, render: renderPaint, onMount: mountPaint, fixed: true, cls: "paint" },
+  aim: { tag: "", title: "Instant Message", num: "", w: 380, h: 420, render: renderAIM, onMount: mountAIM, fixed: true, cls: "aim" },
   passwords: { tag: "§ System", title: "Passwords.txt", num: "", w: 504, h: 548, render: renderPasswords, fixed: true },
   env: { tag: "§ System", title: ".env", num: "", w: 504, h: 548, render: renderEnv, fixed: true },
   finalfinal: { tag: "§ Image", title: "Final_Final_REAL_Final_v7.jpg", num: "▦", w: 460, h: 560, render: renderFinalFinal, onMount: mountFinalFinal, fixed: true },
@@ -738,14 +814,20 @@ const ICONS = [
   { id: "etiquette", label: "Etiquette", variant: "etiquette", x: 3, y: 30 },
   { id: "faq", label: "FAQ", variant: "faq", x: 3, y: 56 },
   { id: "blogfolder", label: "Blog Posts", variant: "folder", x: 82, y: 6 },
+  { id: "about", label: "About" },
+  { id: "gallery", label: "Gallery", variant: "image" },
+  { id: "rates", label: "Rates" },
+  { id: "reviews", label: "Read My Reviews", external: CONFIG.REVIEWS_URL },
+  { id: "__x", label: "Rory on X", external: CONFIG.X_PROFILE_URL },
   { id: "snake", label: "Snake", x: 66, y: 34 },
-  { id: "paint", label: "Paint", x: 20, y: 4 },
+  { id: "paint", label: "Paint", col: 1, row: 0 },
   { id: "passwords", label: "Passwords.txt", variant: "txt", x: 18, y: 78 },
   { id: "env", label: ".env", variant: "txt", x: 4, y: 80, hidden: true },
+  { id: "aim", label: "AIM" },
 ];
 
 const iconLayer = document.getElementById("iconLayer");
-const ICON_POS_KEY = "rg-icon-pos-v1";
+const ICON_POS_KEY = "rg-icon-pos-v2";
 let iconPos = (() => { try { return JSON.parse(localStorage.getItem(ICON_POS_KEY) || "{}"); } catch (_) { return {}; } })();
 const saveIconPos = () => { try { localStorage.setItem(ICON_POS_KEY, JSON.stringify(iconPos)); } catch (_) {} };
 
@@ -755,12 +837,22 @@ const saveIconPos = () => { try { localStorage.setItem(ICON_POS_KEY, JSON.string
 function defaultIconPositions() {
   const startX = 12, startY = 14, colW = 122, rowH = 132;
   const availH = (iconLayer.clientHeight || (window.innerHeight - 40)) - 8;
-  const pos = {};
-  let x = startX, y = startY;
+  const pos = {}, taken = new Set();
+  const key = (a, b) => a + "," + b;
+  // Icons with an explicit { col, row } land on that grid cell first.
   ICONS.forEach((ic) => {
-    pos[ic.id] = { x, y };
-    y += rowH;
-    if (y + rowH > availH) { y = startY; x += colW; }
+    if (typeof ic.col === "number" && typeof ic.row === "number") {
+      const x = startX + ic.col * colW, y = startY + ic.row * rowH;
+      pos[ic.id] = { x, y }; taken.add(key(x, y));
+    }
+  });
+  // Everything else auto-flows down each column, skipping occupied cells.
+  let x = startX, y = startY;
+  const adv = () => { y += rowH; if (y + rowH > availH) { y = startY; x += colW; } };
+  ICONS.forEach((ic) => {
+    if (pos[ic.id]) return;
+    while (taken.has(key(x, y))) adv();
+    pos[ic.id] = { x, y }; taken.add(key(x, y)); adv();
   });
   return pos;
 }
@@ -834,17 +926,22 @@ function renderIcons() {
 }
 function clearSel() { iconLayer.querySelectorAll(".icon.selected").forEach((n) => n.classList.remove("selected")); }
 
-// On phones, stack every icon in a single tight vertical column near the left edge.
+// On phones, stack icons in tight vertical columns near the left edge,
+// wrapping to a new column before an icon would run off the bottom.
 function packMobileIcons() {
   if (!document.body.classList.contains("compact")) return;
-  const startX = 8, startY = 10, gap = 4;
-  let y = startY;
+  const startX = 8, startY = 10, gap = 4, colGap = 6;
+  const availH = iconLayer.clientHeight || (window.innerHeight - 40);
+  let x = startX, y = startY, colW = 0;
   ICONS.forEach((ic) => {
     const node = iconLayer.querySelector(`.icon[data-id="${ic.id}"]`);
     if (!node) return;
-    node.style.left = startX + "px";
+    const h = node.offsetHeight;
+    if (y > startY && y + h > availH) { x += colW + colGap; y = startY; colW = 0; }
+    node.style.left = x + "px";
     node.style.top = y + "px";
-    y += node.offsetHeight + gap;
+    y += h + gap;
+    colW = Math.max(colW, node.offsetWidth);
   });
 }
 
@@ -1327,12 +1424,13 @@ function initWin98() {
 
   const menuItems = [
     ["about", "About"], ["gallery", "Gallery"], ["rates", "Rates"],
+    ["reviews", "Read My Reviews", "ext", CONFIG.REVIEWS_URL],
     ["sep"],
     ["screening", "Screening"], ["etiquette", "Etiquette"], ["faq", "FAQ"], ["blogfolder", "Blog Posts"],
     ["sep"],
     ["snake", "Snake"],
     ["sep"],
-    ["__x", "Rory on X", "ext"], ["__shutdown", "Shut Down…", "shutdown"],
+    ["__x", "Rory on X", "ext", CONFIG.X_PROFILE_URL], ["__shutdown", "Shut Down…", "shutdown"],
   ];
   const menu = el(`<div id="startMenu"><div class="sidebar">Rory Grey <span>Las Vegas, Nevada</span></div><div class="items"></div></div>`);
   const items = menu.querySelector(".items");
@@ -1342,7 +1440,7 @@ function initWin98() {
     const mi = el(`<button class="mi"><span class="ic">${ic}</span><span>${esc(it[1])}</span></button>`);
     mi.addEventListener("click", () => {
       closeStart();
-      if (it[2] === "ext") { const a = document.createElement("a"); a.href = CONFIG.X_PROFILE_URL; a.target = "_blank"; a.rel = "noopener noreferrer"; document.body.appendChild(a); a.click(); a.remove(); return; }
+      if (it[2] === "ext") { const a = document.createElement("a"); a.href = it[3] || CONFIG.X_PROFILE_URL; a.target = "_blank"; a.rel = "noopener noreferrer"; document.body.appendChild(a); a.click(); a.remove(); return; }
       if (it[2] === "shutdown") { shutDown(); return; }
       openApp(it[0]);
     });
@@ -1397,9 +1495,13 @@ openApp("paint");
   const compact = document.body.classList.contains("compact");
   const bottomReserve = win98 ? (compact ? 42 : 48) : 96;
   const margin = compact ? 8 : 12;
-  pw.node.style.left = Math.max(8, vw - w - margin) + "px";
+  const batOverhang = Math.round(w * 0.1);   // the bat's wing sticks out past the right edge
+  pw.node.style.left = Math.max(8, vw - w - margin - batOverhang) + "px";
   pw.node.style.top = Math.max(8, vh - bottomReserve - h - margin) + "px";
 })();
+
+// AIM pops up on its own shortly after arrival (unless the visitor already opened it).
+setTimeout(() => { if (!aim.introStarted) openApp("aim"); }, 9000);
 
 // Deter right-click / drag-save on photography
 document.addEventListener("contextmenu", (e) => { if (e.target.closest("img")) e.preventDefault(); });
