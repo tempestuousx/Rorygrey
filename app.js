@@ -389,17 +389,31 @@ const FAQ = [
   ]],
 ];
 
+/* Win98-style document frames. Notepad has a plain menu bar; WordPad adds a
+   format bar, ruler, and status bar. Content scrolls inside the white page. */
+function menuBar(names) {
+  return `<div class="dt-menu" aria-hidden="true">${names.map((n) => `<span><u>${n[0]}</u>${n.slice(1)}</span>`).join("")}</div>`;
+}
+function notepadDoc(inner, pageCls = "") {
+  return `${menuBar(["File", "Edit", "Search", "Help"])}<div class="dt-page ${pageCls}">${inner}</div>`;
+}
+function wordpadDoc(inner) {
+  return `${menuBar(["File", "Edit", "View", "Insert", "Format", "Help"])}
+    <div class="wp-bar" aria-hidden="true"><span class="wp-field wp-font">Times New Roman</span><span class="wp-field wp-size">12</span><b class="wp-btn">B</b><i class="wp-btn">I</i><u class="wp-btn">U</u></div>
+    <div class="wp-ruler" aria-hidden="true"></div>
+    <div class="dt-page wordpad-page">${inner}</div>
+    <div class="dt-status" aria-hidden="true">For Help, press F1</div>`;
+}
+
+// FAQ reads like an interview in Notepad: bold questions, quoted answers.
 function renderFaq() {
-  const items = FAQ.map(([q, a], i) => {
-    const body = (Array.isArray(a) ? a : [a]).map((p) => `<p>${esc(p)}</p>`).join("");
-    return `<details ${i === 0 ? "open" : ""}>
-    <summary><span class="num">${String(i + 1).padStart(2, "0")}</span><span class="ttl">${esc(q)}</span><span class="pm"></span></summary>
-    <div class="body">${body}</div></details>`;
+  const qa = FAQ.map(([q, a]) => {
+    const paras = Array.isArray(a) ? a : [a];
+    const answer = paras.map((p, i) =>
+      `<p class="np-a">${i === 0 ? "“" : ""}${esc(p)}${i === paras.length - 1 ? "”" : ""}</p>`).join("");
+    return `<p class="np-q">${esc(q)}</p>${answer}`;
   }).join("");
-  return `<div class="doc">
-    <div class="doc-head"><div><div class="kicker">§ Frequently Asked</div><h1>Questions,<br>Answered.</h1></div><div class="head-num">04</div></div>
-    <div class="rules">${items}</div>
-  </div>`;
+  return notepadDoc(qa, "np-interview");
 }
 
 function renderGallery() {
@@ -500,6 +514,50 @@ function renderPaint() {
 // because .win-body clips overflow.
 function mountPaint(node) {
   node.insertAdjacentHTML("beforeend", `<img class="paint-bat" src="icons/bat.png" alt="" aria-hidden="true" draggable="false">`);
+
+  // Pencil: a transparent canvas laid over the photo area of the Paint artwork.
+  // Its pixel size matches that area at the artwork's native 768×1024, so
+  // drawings scale cleanly when the window is resized.
+  const cv = document.createElement("canvas");
+  cv.className = "paint-canvas"; cv.width = 630; cv.height = 794;
+  node.querySelector(".win-body").appendChild(cv);
+  const ctx = cv.getContext("2d");
+  ctx.strokeStyle = ctx.fillStyle = "#000"; ctx.lineWidth = 3; ctx.lineCap = ctx.lineJoin = "round";
+  const pt = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
+  let drawing = false, lx = 0, ly = 0;
+  cv.addEventListener("pointerdown", (e) => {
+    drawing = true; [lx, ly] = pt(e); cv.setPointerCapture(e.pointerId);
+    ctx.beginPath(); ctx.arc(lx, ly, ctx.lineWidth / 2, 0, Math.PI * 2); ctx.fill();
+  });
+  cv.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    const [x, y] = pt(e);
+    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(x, y); ctx.stroke();
+    lx = x; ly = y;
+  });
+  const stop = () => { drawing = false; };
+  cv.addEventListener("pointerup", stop); cv.addEventListener("pointercancel", stop);
+
+  // Resize from any corner, keeping the artwork's shape.
+  ["nw", "ne", "sw", "se"].forEach((c) => node.insertAdjacentHTML("beforeend", `<div class="paint-rz ${c}" data-c="${c}"></div>`));
+  node.addEventListener("pointerdown", (e) => {
+    const h = e.target.closest(".paint-rz"); if (!h) return;
+    e.preventDefault();
+    const c = h.dataset.c, r = node.getBoundingClientRect(), ratio = r.height / r.width;
+    const sx = e.clientX, sy = e.clientY;
+    const move = (ev) => {
+      const dx = (ev.clientX - sx) * (c.includes("w") ? -1 : 1);
+      const dy = (ev.clientY - sy) * (c.includes("n") ? -1 : 1) / ratio;
+      let w = r.width + (Math.abs(dx) > Math.abs(dy) ? dx : dy);
+      w = Math.max(160, Math.min(w, window.innerWidth - 16, (window.innerHeight - 50) / ratio));
+      const hh = w * ratio;
+      node.style.width = w + "px"; node.style.height = hh + "px";
+      node.style.left = (c.includes("w") ? r.right - w : r.left) + "px";
+      node.style.top = (c.includes("n") ? r.bottom - hh : r.top) + "px";
+    };
+    const up = () => { document.removeEventListener("pointermove", move); document.removeEventListener("pointerup", up); };
+    document.addEventListener("pointermove", move); document.addEventListener("pointerup", up);
+  });
 }
 
 /* --- AIM: Y2K instant-message window. The conversation lives in memory, so
@@ -581,15 +639,16 @@ const APPS = {
   finalfinal: { tag: "§ Image", title: "Final_Final_REAL_Final_v7.jpg", num: "▦", w: 460, h: 560, render: renderFinalFinal, onMount: mountFinalFinal, fixed: true },
   screening: { tag: "§ Screening", title: "Screening", num: "05", w: 720, h: 640, render: renderScreening, onMount: mountScreening },
   etiquette: { tag: "§ House Rules", title: "Etiquette", num: "03", w: 720, h: 620, render: renderEtiquette },
-  faq: { tag: "§ Frequently Asked", title: "FAQ", num: "04", w: 700, h: 600, render: renderFaq },
-  about: { tag: "§ Notes — Profile", title: "About", num: "01", w: 720, h: 640, render: renderAbout },
+  faq: { tag: "", title: "FAQ.txt - Notepad", num: "", w: 700, h: 600, render: renderFaq, cls: "notepad" },
+  about: { tag: "", title: "About.txt - Notepad", num: "", w: 720, h: 640, render: () => notepadDoc(renderAbout()), cls: "notepad" },
   gallery: { tag: "§ Photos", title: "Gallery", num: "▦", w: 860, h: 660, render: renderGallery, onMount: mountGallery },
   rates: { tag: "§ Stocks", title: "Rates", num: "02", w: 620, h: 640, render: renderRates },
   blogfolder: { tag: "§ The Journal", title: "Blog Posts", num: "", w: 560, h: 440, render: () => renderFolder("blogfolder"), contents: [] },
   snake: { tag: "§ Games", title: "Snake", num: "", w: 344, h: 640, render: renderSnake, onMount: mountSnake },
 };
 Object.keys(BLOG).forEach((k) => {
-  APPS["blog:" + k] = { tag: "§ The Journal", title: BLOG[k].title, num: "", w: 680, h: 640, render: () => renderArticle(BLOG[k]) };
+  APPS["blog:" + k] = { tag: "", title: BLOG[k].title + " - WordPad", file: BLOG[k].title + ".doc", num: "", w: 680, h: 640,
+    render: () => wordpadDoc(renderArticle(BLOG[k])), cls: "wordpad" };
 });
 APPS.blogfolder.contents = Object.keys(BLOG).map((k) => "blog:" + k);
 
@@ -597,7 +656,7 @@ function renderFolder(folderId) {
   const ids = (APPS[folderId] && APPS[folderId].contents) || [];
   const items = ids.map((id) => `<button class="folder-item" data-open="${id}">
       <span class="fic">${iconMarkup(id, "")}</span>
-      <span>${esc(APPS[id] ? APPS[id].title : id)}</span></button>`).join("");
+      <span>${esc(APPS[id] ? (APPS[id].file || APPS[id].title) : id)}</span></button>`).join("");
   return `<div class="folder-view">${items}</div>
     <div class="folder-status"><span>${ids.length} object(s)</span><span>${esc(APPS[folderId].title)}</span></div>`;
 }

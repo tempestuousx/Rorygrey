@@ -299,3 +299,51 @@ body.win98 .window.aim .win-body { flex: 1; min-height: 0; display: flex; flex-d
 body.win98 .icon[data-id="aim"] .glyph { width: 78px; height: 78px; image-rendering: auto; }
 @media (max-width: 720px) { body.win98 .icon[data-id="aim"] .glyph { width: 54px; height: 54px; } }
 body.win98 .window.aim .win-ico { width: 24px; height: 28px; image-rendering: auto; }
+
+/* ===================== Paint: pencil layer + corner resize ===================== */
+body.win98 .window.paint .win-body { position: relative; }
+body.win98 .window.paint .paint-canvas { position: absolute; left: 13.9%; top: 7.8%; width: 82%; height: 77.5%;
+  touch-action: none; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M2 20 L4 14 L15 3 L19 7 L8 18 Z' fill='%23fff' stroke='%23000' stroke-width='1.3'/%3E%3Cpath d='M2 20 L4 14 L8 18 Z' fill='%23000'/%3E%3C/svg%3E") 2 20, crosshair; }
+body.win98 .window.paint .paint-rz { position: absolute; width: 12px; height: 12px; z-index: 5; touch-action: none; }
+body.win98 .window.paint .paint-rz.nw { left: -6px; top: -6px; cursor: nwse-resize; }
+body.win98 .window.paint .paint-rz.ne { right: -6px; top: -6px; cursor: nesw-resize; }
+body.win98 .window.paint .paint-rz.sw { left: -6px; bottom: -6px; cursor: nesw-resize; }
+body.win98 .window.paint .paint-rz.se { right: -6px; bottom: -6px; cursor: nwse-resize; }
+@media (max-width: 720px) { body.win98 .window.paint .paint-rz { width: 22px; height: 22px; } }
+
+/* ===================== Notepad / WordPad document windows ===================== */
+body.win98 .window.notepad .win-body,
+body.win98 .window.wordpad .win-body { flex: 1; min-height: 0; display: flex; flex-direction: column;
+  padding: 0 3px 3px; overflow: hidden; background: #c0c0c0; }
+.dt-menu { flex: 0 0 auto; display: flex; gap: 2px; padding: 2px 2px 3px; font: 13px Tahoma, "MS Sans Serif", sans-serif; color: #000; }
+.dt-menu span { padding: 1px 7px; cursor: default; }
+.dt-menu span:hover { background: #000080; color: #fff; }
+.dt-page { flex: 1; min-height: 0; overflow-y: auto; background: #fff;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #fff, inset 2px 2px #000, inset -2px -2px #dfdfdf; }
+.np-interview { padding: 16px 20px; font: 15px/1.6 "Lucida Console", "Courier New", monospace; color: #000; }
+.np-q { font-weight: 700; margin: 0 0 6px; }
+.np-a { margin: 0 0 6px; }
+.np-a + .np-q { margin-top: 22px; }
+.wp-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 4px; padding: 3px 4px;
+  border-top: 1px solid #808080; box-shadow: inset 0 1px #fff; font: 12px Tahoma, sans-serif; color: #000; }
+.wp-field { background: #fff; padding: 2px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
+.wp-font { width: 150px; }
+.wp-size { width: 34px; }
+.wp-btn { width: 22px; text-align: center; padding: 2px 0; font-family: "Times New Roman", serif; font-size: 14px; }
+.wp-ruler { flex: 0 0 auto; height: 16px; margin: 0 0 3px;
+  background: #fff repeating-linear-gradient(90deg, transparent 0 11px, #000 11px 12px) bottom / 100% 4px no-repeat;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
+.dt-status { flex: 0 0 auto; margin-top: 3px; padding: 2px 6px; font: 12px Tahoma, sans-serif; color: #000;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
+@media (max-width: 720px) {
+  .wp-font { width: 110px; }
+  .np-interview { font-size: 14px; padding: 12px 14px; }
+}
+
+/* ===================== Screening form: larger text ===================== */
+body.win98 .form label span { font-size: 14px; }
+body.win98 .form input, body.win98 .form select, body.win98 .form textarea { font-size: 15px; }
+body.win98 .form legend { font-size: 13px; }
+body.win98 .form .intro { font-size: 15px; }
+body.win98 .form-notice { font-size: 14px; }
+body.win98 .form .submit { font-size: 14px; }
