@@ -250,7 +250,7 @@ body.win98 .window.paint .win-dot.zoom { pointer-events: none; }   /* maximize i
 body.win98 .window.paint .win-body { padding: 0; margin: 0; overflow: hidden; background: transparent; }
 body.win98 .window.paint .paint-img { display: block; width: 100%; height: auto; -webkit-user-drag: none; user-select: none; }
 /* bat perched on the top edge of the Paint window (sized/positioned relative to the window width) */
-body.win98 .window.paint .paint-bat { position: absolute; width: 66%; left: 43%; bottom: 100%; margin-bottom: -5.5%;
+body.win98 .window.paint .paint-bat { position: absolute; width: 66%; left: 30%; bottom: 100%; margin-bottom: -5.5%;
   z-index: 3; pointer-events: none; user-select: none; -webkit-user-drag: none; }
 
 /* ===================== AIM Instant Message ===================== */
@@ -306,10 +306,13 @@ body.win98 .window.paint .paint-canvas { position: absolute; left: 13.9%; top: 7
   touch-action: none; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M2 20 L4 14 L15 3 L19 7 L8 18 Z' fill='%23fff' stroke='%23000' stroke-width='1.3'/%3E%3Cpath d='M2 20 L4 14 L8 18 Z' fill='%23000'/%3E%3C/svg%3E") 2 20, crosshair; }
 body.win98 .window.paint .paint-rz { position: absolute; width: 12px; height: 12px; z-index: 5; touch-action: none; }
 body.win98 .window.paint .paint-rz.nw { left: -6px; top: -6px; cursor: nwse-resize; }
-body.win98 .window.paint .paint-rz.ne { right: -6px; top: -6px; cursor: nesw-resize; }
+body.win98 .window.paint .paint-rz.ne { right: -10px; top: -10px; cursor: nesw-resize; }
 body.win98 .window.paint .paint-rz.sw { left: -6px; bottom: -6px; cursor: nesw-resize; }
 body.win98 .window.paint .paint-rz.se { right: -6px; bottom: -6px; cursor: nwse-resize; }
-@media (max-width: 720px) { body.win98 .window.paint .paint-rz { width: 22px; height: 22px; } }
+@media (max-width: 720px) {
+  body.win98 .window.paint .paint-rz { width: 22px; height: 22px; }
+  body.win98 .window.paint .paint-rz.ne { right: -20px; top: -20px; }
+}
 
 /* ===================== Notepad / WordPad document windows ===================== */
 body.win98 .window.notepad .win-body,
@@ -347,3 +350,13 @@ body.win98 .form legend { font-size: 13px; }
 body.win98 .form .intro { font-size: 15px; }
 body.win98 .form-notice { font-size: 14px; }
 body.win98 .form .submit { font-size: 14px; }
+
+/* Paint's Minimize/Close: invisible hotspots placed as percentages over the
+   buttons painted in the artwork (measured on the 768×1024 original), so they
+   stay lined up at any window size, including after resizing. */
+body.win98 .window.paint .titlebar { height: 4%; }
+body.win98 .window.paint .win-controls { position: static; }
+body.win98 .window.paint .win-dot { position: absolute; top: 15%; height: 80%; width: 3.7%; margin: 0; cursor: pointer; }
+body.win98 .window.paint .win-dot.min { left: 86.7%; }
+body.win98 .window.paint .win-dot.close { left: 95%; }
+body.win98 .window.paint .win-dot.zoom { display: none; }

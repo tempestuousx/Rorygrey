@@ -12,6 +12,10 @@ const CONFIG = {
   // then paste its endpoint here (e.g. "https://formspree.io/f/abcdwxyz").
   // Until this is set, the form shows a "not connected yet" message instead of sending.
   FORM_ENDPOINT: "https://formspree.io/f/moearjqb",
+  // Paint drawings are saved to a Google Drive folder through a Google Apps Script
+  // web app (see extras/drive-drawings-script.gs). Paste its /exec URL here.
+  // Left blank, drawings simply aren't sent anywhere.
+  DRAWINGS_ENDPOINT: "https://script.google.com/macros/s/AKfycby-BshakbD9B4mMYcVrYIkhFZcQ4EFO06AGTHqGhqxraPiV2te896OFPgdODhSZfksJbA/exec",
   // Global Snake leaderboard (Firebase Firestore). Leave both blank to keep the
   // leaderboard as per-browser local scores. Do NOT commit a real API key here —
   // this file is public, so a key checked in can be read (and abused) by anyone.
@@ -524,9 +528,9 @@ function mountPaint(node) {
   const ctx = cv.getContext("2d");
   ctx.strokeStyle = ctx.fillStyle = "#000"; ctx.lineWidth = 3; ctx.lineCap = ctx.lineJoin = "round";
   const pt = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
-  let drawing = false, lx = 0, ly = 0;
+  let drawing = false, dirty = false, lx = 0, ly = 0;
   cv.addEventListener("pointerdown", (e) => {
-    drawing = true; [lx, ly] = pt(e); cv.setPointerCapture(e.pointerId);
+    drawing = true; dirty = true; [lx, ly] = pt(e); cv.setPointerCapture(e.pointerId);
     ctx.beginPath(); ctx.arc(lx, ly, ctx.lineWidth / 2, 0, Math.PI * 2); ctx.fill();
   });
   cv.addEventListener("pointermove", (e) => {
@@ -537,6 +541,16 @@ function mountPaint(node) {
   });
   const stop = () => { drawing = false; };
   cv.addEventListener("pointerup", stop); cv.addEventListener("pointercancel", stop);
+
+  // Autosave to Drive. Closing Paint sends the full picture with the drawing on
+  // top. Leaving the page mid-drawing sends just the strokes, because browsers
+  // only allow a small (~64 KB) request while a page unloads.
+  const onLeave = () => { if (dirty) { dirty = false; sendDrawing(cv.toDataURL("image/png"), "strokes", true); } };
+  window.addEventListener("pagehide", onLeave);
+  node.querySelector(".close").addEventListener("click", () => {
+    window.removeEventListener("pagehide", onLeave);
+    if (dirty) { dirty = false; sendDrawing(paintSnapshot(node, cv), "full"); }
+  });
 
   // Resize from any corner, keeping the artwork's shape.
   ["nw", "ne", "sw", "se"].forEach((c) => node.insertAdjacentHTML("beforeend", `<div class="paint-rz ${c}" data-c="${c}"></div>`));
@@ -558,6 +572,29 @@ function mountPaint(node) {
     const up = () => { document.removeEventListener("pointermove", move); document.removeEventListener("pointerup", up); };
     document.addEventListener("pointermove", move); document.addEventListener("pointerup", up);
   });
+}
+
+// The Paint artwork at native size (768×1024) with the pencil layer drawn over
+// its photo area (the same offsets the CSS uses to place the canvas).
+function paintSnapshot(node, cv) {
+  const img = node.querySelector(".paint-img");
+  const out = document.createElement("canvas");
+  out.width = img.naturalWidth; out.height = img.naturalHeight;
+  const g = out.getContext("2d");
+  g.drawImage(img, 0, 0);
+  g.drawImage(cv, Math.round(out.width * 0.139), Math.round(out.height * 0.078), cv.width, cv.height);
+  return out.toDataURL("image/jpeg", 0.88);
+}
+// Fire-and-forget POST to the Apps Script web app. text/plain + no-cors keeps it
+// a "simple" request, so the browser doesn't need a CORS preflight Google won't answer.
+function sendDrawing(dataUrl, kind, unloading) {
+  if (!CONFIG.DRAWINGS_ENDPOINT) return;
+  const body = JSON.stringify({ image: dataUrl, kind });
+  if (unloading && navigator.sendBeacon) {
+    navigator.sendBeacon(CONFIG.DRAWINGS_ENDPOINT, new Blob([body], { type: "text/plain" }));
+    return;
+  }
+  fetch(CONFIG.DRAWINGS_ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body }).catch(() => {});
 }
 
 /* --- AIM: Y2K instant-message window. The conversation lives in memory, so
@@ -632,7 +669,7 @@ function mountAIM(node) {
 
 /* --- App registry --- */
 const APPS = {
-  paint: { tag: "", title: "untitled - Paint", num: "", w: 243, h: 324, render: renderPaint, onMount: mountPaint, fixed: true, cls: "paint" },
+  paint: { tag: "", title: "untitled - Paint", num: "", w: 292, h: 389, render: renderPaint, onMount: mountPaint, fixed: true, cls: "paint" },
   aim: { tag: "", title: "Instant Message", num: "", w: 380, h: 420, render: renderAIM, onMount: mountAIM, fixed: true, cls: "aim" },
   passwords: { tag: "§ System", title: "Passwords.txt", num: "", w: 504, h: 548, render: renderPasswords, fixed: true },
   env: { tag: "§ System", title: ".env", num: "", w: 504, h: 548, render: renderEnv, fixed: true },
@@ -687,7 +724,7 @@ function openApp(id) {
   const availH = vh - topMin - bottomReserve;
   let width = Math.min(app.w, vw - (compact ? 12 : 20));
   // On phones the Paint portrait would otherwise fill the screen — keep it a modest window.
-  if (compact && app.cls === "paint") width = Math.min(width, Math.round(vw * 0.72));
+  if (compact && app.cls === "paint") width = Math.min(width, Math.round(vw * 0.72), 243);
 
   const node = el(`<section class="window" role="dialog" aria-label="${esc(app.title)}" tabindex="-1"
       style="left:-9999px;top:${topMin}px;width:${width}px">
@@ -1554,8 +1591,7 @@ openApp("paint");
   const compact = document.body.classList.contains("compact");
   const bottomReserve = win98 ? (compact ? 42 : 48) : 96;
   const margin = compact ? 8 : 12;
-  const batOverhang = Math.round(w * 0.1);   // the bat's wing sticks out past the right edge
-  pw.node.style.left = Math.max(8, vw - w - margin - batOverhang) + "px";
+  pw.node.style.left = Math.max(8, vw - w - margin) + "px";
   pw.node.style.top = Math.max(8, vh - bottomReserve - h - margin) + "px";
 })();
 
