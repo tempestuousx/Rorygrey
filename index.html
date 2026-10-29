@@ -5,10 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Rory Grey — Las Vegas, Nevada</title>
   <meta name="description" content="Rory Grey. Private appointments in Las Vegas and beyond." />
-  <link rel="stylesheet" href="styles.css?v=51" />
-  <link rel="stylesheet" href="win98.css?v=51" />
+  <link rel="stylesheet" href="styles.css?v=52" />
+  <link rel="stylesheet" href="win98.css?v=52" />
+  <style>
+    /* "go to the easy site" nag bar */
+    #classicNag{ position:fixed; top:0; left:0; right:0; z-index:4900; box-sizing:border-box;
+      display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+      min-height:34px; padding:5px 44px 5px 14px;
+      background:linear-gradient(90deg,#e35bb0,#8a3fd1); color:#fff;
+      font-family:Tahoma,"MS Sans Serif",sans-serif; font-size:13px; font-weight:700;
+      box-shadow:0 2px 0 rgba(0,0,0,.28); }
+    #classicNag .nag-txt{ opacity:.96; }
+    #classicNag .nag-btn{ background:#fff; color:#8a2fb0; text-decoration:none; font-weight:700;
+      padding:4px 12px; border-radius:7px; border:2px solid rgba(0,0,0,.15); white-space:nowrap; }
+    #classicNag .nag-btn:hover{ background:#ffe9f8; }
+    #classicNag .nag-jab{ font-style:italic; font-weight:400; opacity:.85; }
+    #classicNag .nag-x{ position:absolute; right:8px; top:50%; transform:translateY(-50%);
+      background:transparent; border:0; color:#fff; font-size:19px; line-height:1; cursor:pointer; padding:4px; }
+    body.win98 .icon-layer{ top:38px; }
+    body.nonag #classicNag{ display:none; }
+    body.nonag.win98 .icon-layer{ top:0; }
+    @media (max-width:620px){
+      #classicNag{ font-size:12px; gap:7px; padding:5px 34px 5px 10px; }
+      #classicNag .nag-txt, #classicNag .nag-jab{ display:none; }
+    }
+  </style>
 </head>
 <body class="win98">
+  <script>try{if(localStorage.getItem('rg-nag-dismissed'))document.body.classList.add('nonag');}catch(e){}</script>
+  <!-- Prefer-a-simple-site nag bar -->
+  <div id="classicNag">
+    <span class="nag-txt">New here? The retro desktop can be a lot.</span>
+    <a class="nag-btn" href="classic.html">Fine — take me to the easy site →</a>
+    <span class="nag-jab">party pooper.</span>
+    <button class="nag-x" aria-label="Dismiss" onclick="try{localStorage.setItem('rg-nag-dismissed','1')}catch(e){};document.body.classList.add('nonag')">×</button>
+  </div>
+
   <!-- Menu bar -->
   <header class="menubar" role="banner">
     <div class="menubar-left">
