@@ -59,15 +59,13 @@
 
   /* ---------- hero ---------- */
   .hero .win-body{ background:rgba(255,255,255,.62); }
-  .hero-row{ display:flex; gap:24px; align-items:center; flex-wrap:wrap; }
-  .card{ flex:0 0 auto; width:210px; background:#fff; border:3px solid var(--line); border-radius:10px; padding:9px; }
-  .card .cap{ font-family:var(--pix); font-size:10px; color:var(--accent-2); display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-  .card .cap .dots{ margin-left:auto; display:flex; gap:5px; }
-  .card .cap .dots i{ width:10px; height:10px; border-radius:50%; background:#fff; border:2px solid rgba(59,27,85,.4); }
-  .card img{ display:block; width:100%; height:230px; object-fit:cover; object-position:center 18%; border:2px solid var(--line); border-radius:6px; filter:saturate(1.05) contrast(1.02); }
-  .hero-text{ flex:1 1 300px; min-width:260px; }
-  .bubble{ position:relative; background:#fff; border:3px solid var(--line); border-radius:12px; padding:16px 18px; font-size:22px; font-weight:600; }
-  .bubble::after{ content:""; position:absolute; left:-15px; top:28px; border:9px solid transparent; border-right-color:var(--line); }
+  .hero-row{ display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap; }
+  .avatar{ flex:0 0 auto; align-self:stretch; display:flex; align-items:flex-end; }
+  .avatar img{ height:380px; width:auto; display:block; filter:drop-shadow(3px 8px 7px rgba(59,27,85,.3)); }
+  .hero-text{ flex:1 1 300px; min-width:260px; padding-top:14px; }
+  .bubble{ position:relative; background:#fff; border:3px solid var(--line); border-radius:14px; padding:16px 18px; font-size:22px; font-weight:600; }
+  .bubble::after{ content:""; position:absolute; left:-15px; top:26px; border:9px solid transparent; border-right-color:var(--line); }
+  .bubble::before{ content:""; position:absolute; left:-11px; top:28px; border:7px solid transparent; border-right-color:#fff; z-index:1; }
   .hero-sub{ font-family:var(--pix); font-size:11px; color:var(--accent-2); margin-top:18px; line-height:1.9; }
   .scrolltip{ margin-top:18px; font-size:15px; color:var(--muted); font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
 
@@ -141,7 +139,10 @@
   @media (max-width:720px){
     body{ font-size:18px; }
     .grid{ grid-template-columns:1fr; }
-    .card{ width:100%; } .card img{ height:300px; object-position:center 15%; }
+    .hero-row{ justify-content:center; }
+    .avatar{ align-self:center; }
+    .avatar img{ height:300px; }
+    .hero-text{ padding-top:0; }
     .gallery-grid{ grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); }
   }
 </style>
@@ -166,12 +167,9 @@
       <div class="win-bar"><span class="t">RORY&nbsp;GREY.EXE</span><span class="dots"><i></i><i></i></span></div>
       <div class="win-body">
         <div class="hero-row">
-          <div class="card">
-            <div class="cap">DIGITAL ME <span class="dots"><i></i><i></i></span></div>
-            <img src="photos/digital-me.jpg" alt="Rory Grey, pixel portrait" />
-          </div>
+          <div class="avatar"><img src="photos/digital-me.png" alt="Rory Grey" /></div>
           <div class="hero-text">
-            <div class="bubble">Hi, I'm Rory. Welcome in, make yourself comfortable. 💋</div>
+            <div class="bubble">Well, look who wandered in. I'm Rory, make yourself comfortable. 💋</div>
             <div class="hero-sub">PRIVATE COMPANIONSHIP<br>LAS VEGAS, NEVADA &amp; BEYOND</div>
             <div class="scrolltip">↓ scroll down to look around</div>
           </div>
