@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Pink retro "Windows" skin — overrides styles.css when <body class="win98">.
+   Pink retro "Windows" skin, overrides styles.css when <body class="win98">.
    Flat pink desktop, pink beveled windows/taskbar, editorial content on white.
    No gradients on the wallpaper. Rory Grey's real names/content throughout.
    ========================================================================== */
@@ -27,7 +27,7 @@ body.win98 {
   --paper-2: #f4f4f4;
   --paper-3: #e8e8e8;
 
-  /* pixel file-icon palette (consumed by docIcon SVGs) — neutral w/ red accent */
+  /* pixel file-icon palette (consumed by docIcon SVGs), neutral w/ red accent */
   --doc-paper: #f7f5f0;
   --doc-line:  #2a2a2a;
   --doc-line2: #a8a8a8;
@@ -47,7 +47,7 @@ body.win98 .desktop::before, body.win98 .desktop::after { display: none; content
 
 /* --- desktop icons: start in a tidy vertical column (arranged by app.js,
        wrapping into more columns as space allows) and are freely draggable.
-       Same behaviour on phones — the compact grid is overridden below. --- */
+       Same behaviour on phones, the compact grid is overridden below. --- */
 body.win98 .icon-layer { position: absolute; inset: 0; }
 body.win98 .icon { width: 106px; gap: 2px; padding: 7px 5px; }
 body.win98.compact .icon-layer { display: block; inset: 0; }
@@ -230,7 +230,7 @@ body.win98 .sol-btn:active { box-shadow: inset 1px 1px var(--lo2), inset -1px -1
   body.win98 .win-title { max-width: 44vw; }
 }
 
-/* ===================== Rory Paint window (chromeless — uses the artwork's own painted title bar) ===================== */
+/* ===================== Rory Paint window (chromeless, uses the artwork's own painted title bar) ===================== */
 body.win98 .window.paint { padding: 0; border: 0; border-radius: 0; background: transparent; overflow: visible;
   min-width: 0; min-height: 0;
   box-shadow: 2px 2px 0 rgba(0,0,0,.35), 5px 5px 16px rgba(0,0,0,.45); }

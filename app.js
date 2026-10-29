@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Rory Grey — The Private Desktop  ·  window manager + content
+   Rory Grey, The Private Desktop  ·  window manager + content
    Single-page desktop environment. Everything opens in floating windows
    layered over the desktop; nothing navigates away (except the external X link).
    ========================================================================== */
@@ -17,8 +17,7 @@ const CONFIG = {
   // Left blank, drawings simply aren't sent anywhere.
   DRAWINGS_ENDPOINT: "https://script.google.com/macros/s/AKfycby-BshakbD9B4mMYcVrYIkhFZcQ4EFO06AGTHqGhqxraPiV2te896OFPgdODhSZfksJbA/exec",
   // Global Snake leaderboard (Firebase Firestore). Leave both blank to keep the
-  // leaderboard as per-browser local scores. Do NOT commit a real API key here —
-  // this file is public, so a key checked in can be read (and abused) by anyone.
+  // leaderboard as per-browser local scores. Do NOT commit a real API key here,   // this file is public, so a key checked in can be read (and abused) by anyone.
   FIREBASE_PROJECT_ID: "",
   FIREBASE_API_KEY: "",
 };
@@ -130,7 +129,7 @@ function docIcon(variant) {
   </svg>`;
 }
 
-/* Dock app icons — visually echo the real apps, rendered in-brand */
+/* Dock app icons, visually echo the real apps, rendered in-brand */
 const DOCK_ART = {
   notes: `<svg viewBox="0 0 54 54"><rect width="54" height="54" rx="12" fill="#fbfbf7"/>
       <path d="M0 12 a12 12 0 0 1 12-12 h30 a12 12 0 0 1 12 12 v3 H0 Z" fill="#f3c33f"/>
@@ -269,7 +268,7 @@ function renderArticle(post) {
 function renderAbout() {
   return `<div class="doc">
     <div class="doc-head">
-      <div><div class="kicker">§ Feature — Profile</div><h1>About Me</h1></div>
+      <div><div class="kicker">§ Feature, Profile</div><h1>About Me</h1></div>
       <div class="head-num">01</div>
     </div>
     <p class="lede">I've never been particularly interested in being everyone's cup of tea. Frankly, that sounds exhausting.</p>
@@ -302,9 +301,9 @@ function renderRates() {
   const std = [["1 Hour", "$700"], ["1½ Hours", "$1,000", "The minimum for first-time friends."],
     ["2 Hours", "$1,250"], ["3 Hours", "$1,750"], ["4 Hours", "$2,250", "Dates 4 hours and longer require some time out of the room."],
     ["6 Hours", "$3,000"], ["12 Hours", "$5,000"], ["Couples", "$1,000 / hr"], ["Additional Hours", "+$600 / hr"]];
-  const ext = [["12 Hours", "$5,000", "FMTY — 12hr minimum + flight & hotel. Please inquire."],
+  const ext = [["12 Hours", "$5,000", "FMTY, 12hr minimum + flight & hotel. Please inquire."],
     ["24 Hours", "$7,500"], ["36 Hours", "$9,500"], ["48 Hours", "$13,000"]];
-  const virt = [["15 Mins — Texting", "$150"], ["20 Mins — FaceTime", "$250"]];
+  const virt = [["15 Mins, Texting", "$150"], ["20 Mins, FaceTime", "$250"]];
   const line = ([lab, price, note]) => `<div class="rate-line"><span class="lab">${lab}</span><span class="price"><span class="up">▲</span>${price}</span>${note ? `<span class="rate-note">${note}</span>` : ""}</div>`;
   return `<div class="rates">
     <div class="ticker"><span class="sym"><b>RG</b> · LAS VEGAS, NEVADA</span><span class="arrow">RATES · THE TERMS</span></div>
@@ -422,7 +421,7 @@ function renderFaq() {
 
 function renderGallery() {
   const tiles = PHOTOS.map((src, i) => `<button class="tile" data-photo="${i}" aria-label="Open photograph ${i + 1}">
-    <img src="${src}" alt="Rory Grey — photograph ${i + 1}" loading="lazy" />
+    <img src="${src}" alt="Rory Grey, photograph ${i + 1}" loading="lazy" />
     <span class="cap">FIG. ${String(i + 1).padStart(2, "0")}</span></button>`).join("");
   return `<div class="gallery">
     <div class="gallery-head"><div><div class="kicker">§ Portfolio</div><h1>Gallery</h1></div><div class="count">${PHOTOS.length} PLATES</div></div>
@@ -440,7 +439,7 @@ function renderContact() {
     <p class="lede">For anything about an engagement, the inquiry form is where we start. The methods below are for the rest.</p>
     <div class="methods">
       <div class="m"><span class="k">Signal / Telephone</span><span class="v">${CONFIG.PHONE}</span></div>
-      <div class="m"><span class="k">Email</span><span class="v small">By introduction — provided after screening</span></div>
+      <div class="m"><span class="k">Email</span><span class="v small">By introduction, provided after screening</span></div>
       <div class="m"><span class="k">Correspondence Address</span><span class="v small">Provided privately, upon request</span></div>
     </div>
     <p style="font-size:13px;color:rgba(11,11,10,.7)">For anything regarding an engagement, the inquiry form is the proper place to begin.</p>
@@ -451,8 +450,8 @@ function renderContact() {
 
 function renderScreening() {
   return `<form class="form" id="screeningForm" novalidate>
-    <input type="hidden" name="_subject" value="New screening inquiry — RoryGrey.com">
-    <div class="doc-head" style="padding:0 0 14px"><div><div class="kicker">§ Screening — An Inquiry</div><h1>Begin With<br>An Introduction.</h1></div><div class="head-num">05</div></div>
+    <input type="hidden" name="_subject" value="New screening inquiry, RoryGrey.com">
+    <div class="doc-head" style="padding:0 0 14px"><div><div class="kicker">§ Screening, An Inquiry</div><h1>Begin With<br>An Introduction.</h1></div><div class="head-num">05</div></div>
     <p class="intro">Tell me a little about yourself and the time you're imagining. Screening helps me know a little about who I'm meeting before we disappear into our own world for a while. I reply personally.</p>
     <fieldset>
       <legend><span>01</span> Contact + Appointment</legend>
@@ -512,7 +511,7 @@ function mountFinalFinal(node) {
 }
 
 function renderPaint() {
-  return `<img class="paint-img" src="paint/rory-paint.jpg" alt="Rory — untitled - Paint" draggable="false">`;
+  return `<img class="paint-img" src="paint/rory-paint.jpg" alt="Rory, untitled - Paint" draggable="false">`;
 }
 // The bat perches on top of the Paint window. It goes on the window node itself,
 // because .win-body clips overflow.
@@ -723,7 +722,7 @@ function openApp(id) {
   const bottomReserve = win98 ? (compact ? 42 : 48) : 96;
   const availH = vh - topMin - bottomReserve;
   let width = Math.min(app.w, vw - (compact ? 12 : 20));
-  // On phones the Paint portrait would otherwise fill the screen — keep it a modest window.
+  // On phones the Paint portrait would otherwise fill the screen, keep it a modest window.
   if (compact && app.cls === "paint") width = Math.min(width, Math.round(vw * 0.72), 243);
 
   const node = el(`<section class="window" role="dialog" aria-label="${esc(app.title)}" tabindex="-1"
@@ -768,7 +767,7 @@ function openApp(id) {
   const frame = node.offsetHeight - body.offsetHeight;   // titlebar + window chrome
   let winH = app.fixed ? Math.min(app.h, availH)
                        : Math.min(Math.max(body.scrollHeight + frame, 130), availH);
-  // Paint's frame is the artwork itself — keep the window in the picture's aspect ratio.
+  // Paint's frame is the artwork itself, keep the window in the picture's aspect ratio.
   if (app.cls === "paint") winH = Math.min(Math.round(width * 4 / 3), availH);
   node.style.height = winH + "px";
 
@@ -859,7 +858,7 @@ function mountScreening(node) {
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     if (!CONFIG.FORM_ENDPOINT) {
-      notice.innerHTML = `<div class="form-notice">Your introduction has been prepared. Delivery isn't connected yet — add your form endpoint in <code>app.js</code> to go live.</div>`;
+      notice.innerHTML = `<div class="form-notice">Your introduction has been prepared. Delivery isn't connected yet, add your form endpoint in <code>app.js</code> to go live.</div>`;
       scrollDown(); return;
     }
 
@@ -870,7 +869,7 @@ function mountScreening(node) {
       const res = await fetch(CONFIG.FORM_ENDPOINT, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
       if (!res.ok) throw new Error("bad status " + res.status);
       form.reset(); hotel.hidden = true; hotel.querySelector("input").required = false; setDetail();
-      notice.innerHTML = `<div class="form-notice">Thank you — your introduction has been sent. I reply personally, as promptly as life allows.</div>`;
+      notice.innerHTML = `<div class="form-notice">Thank you, your introduction has been sent. I reply personally, as promptly as life allows.</div>`;
     } catch (err) {
       notice.innerHTML = `<div class="form-notice">Something interrupted the send. Please try again in a moment, or reach me by the methods on the Contact card.</div>`;
     } finally {
@@ -954,7 +953,7 @@ function defaultIconPositions() {
 }
 
 function activateIcon(ic) {
-  if (ic.noop) return; // decoy icon — intentionally does nothing
+  if (ic.noop) return; // decoy icon, intentionally does nothing
   if (ic.external) {
     const a = document.createElement("a");
     a.href = ic.external; a.target = "_blank"; a.rel = "noopener noreferrer";
@@ -1043,9 +1042,9 @@ function packMobileIcons() {
 
 /* ============================== DOCK ==================================== */
 const DOCK = [
-  { id: "about", label: "About — Notes", art: "notes" },
-  { id: "gallery", label: "Gallery — Photos", art: "photos" },
-  { id: "rates", label: "Rates — Stocks", art: "stocks" },
+  { id: "about", label: "About, Notes", art: "notes" },
+  { id: "gallery", label: "Gallery, Photos", art: "photos" },
+  { id: "rates", label: "Rates, Stocks", art: "stocks" },
   { id: "__x", label: "Rory on X", art: "x", external: CONFIG.X_PROFILE_URL },
 ];
 const dock = document.getElementById("dock");
@@ -1085,7 +1084,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") { if (lb && lb.classList.contains("show")) { closeLB(); return; } if (activeId) closeApp(activeId); }
   if (lb && lb.classList.contains("show")) { if (e.key === "ArrowLeft") stepLB(-1); if (e.key === "ArrowRight") stepLB(1); }
 });
-// Desktop marquee (rubber-band) selection — authentic click-and-drag on empty desktop
+// Desktop marquee (rubber-band) selection, authentic click-and-drag on empty desktop
 (function initMarquee() {
   const desktop = document.getElementById("desktop");
   desktop.addEventListener("pointerdown", (e) => {
@@ -1241,7 +1240,7 @@ function mountSnake(node) {
     const s = (list || []).slice(0, 10);
     el.innerHTML = s.length
       ? s.map((e, i) => `<li><span class="hs-rank">${i + 1}</span><span class="hs-name">${esc(e.name)}</span><span class="hs-score">${e.score}</span></li>`).join("")
-      : `<li class="hs-empty">No scores yet — be the first.</li>`;
+      : `<li class="hs-empty">No scores yet, be the first.</li>`;
   }
   async function refreshBoard() { boardCache = await fetchScores(); renderBoard(boardCache); }
 
@@ -1514,7 +1513,7 @@ function initWin98() {
     <button id="startBtn">${heartIcon("#ec4fa0")}<span>Start</span></button>
     <div class="tb-div"></div>
     <div class="tb-tasks" id="tbTasks"></div>
-    <div class="tb-tray">${heartIcon("#ec4fa0")}<span id="trayClock">—</span></div>
+    <div class="tb-tray">${heartIcon("#ec4fa0")}<span id="trayClock">-</span></div>
   </div>`);
   document.body.appendChild(bar);
 

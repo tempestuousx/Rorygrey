@@ -15,9 +15,9 @@
 }
 
 /* ==========================================================================
-   Rory Grey — The Private Desktop
+   Rory Grey, The Private Desktop
    Editorial desktop environment. Brand: cream paper, ink, oxblood accent,
-   Arial Narrow uppercase display. Adapted desktop metaphor — not a Mac parody.
+   Arial Narrow uppercase display. Adapted desktop metaphor, not a Mac parody.
    ========================================================================== */
 
 :root {
@@ -521,7 +521,7 @@ body.win98 .icon[data-id="blogfolder"] .glyph { width: 72px; height: 72px; }
 .slot-empty.red { color: rgba(255,214,228,.85); }
 
 /* ---- Rory's content typography: IM Fell (headlines + body), Heavenfield (quotes).
-   Scoped to the editorial content only — chrome/nav/folders keep the system font. ---- */
+   Scoped to the editorial content only, chrome/nav/folders keep the system font. ---- */
 .doc, .article, .rates, .gallery, .form {
   font-family: "ABeeZee", "Segoe UI", Helvetica, Arial, sans-serif;
   --disp: "ABeeZee", "Segoe UI", Helvetica, Arial, sans-serif;
