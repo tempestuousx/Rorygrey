@@ -48,7 +48,11 @@
   .win-bar .t{ font-family:var(--pix); font-size:13px; text-shadow:1px 1px 0 rgba(59,27,85,.5); }
   .win-bar .dots{ margin-left:auto; display:flex; gap:7px; }
   .win-bar .dots i{ width:14px; height:14px; border-radius:50%; background:#fff; border:2px solid rgba(59,27,85,.45); display:block; }
-  .win-body{ padding:24px 24px 28px; }
+  .win-body{ padding:24px 24px 28px;
+    background-image:
+      linear-gradient(rgba(106,59,159,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(106,59,159,.08) 1px, transparent 1px);
+    background-size:26px 26px; }
 
   h2.sec{ font-family:var(--pix); font-size:20px; line-height:1.5; color:var(--accent-2); margin:0 0 16px; }
   .kicker{ font-family:var(--pix); font-size:10px; color:var(--accent); letter-spacing:1px; margin-bottom:12px; }
@@ -58,10 +62,12 @@
   .pull b{ color:var(--accent); font-style:normal; }
 
   /* ---------- hero ---------- */
-  .hero .win-body{ background:rgba(255,255,255,.62); }
+  .hero .win-body{ background-color:rgba(255,255,255,.66); position:relative; }
   .hero-row{ display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap; }
-  .avatar{ flex:0 0 auto; align-self:stretch; display:flex; align-items:flex-end; }
-  .avatar img{ height:380px; width:auto; display:block; filter:drop-shadow(3px 8px 7px rgba(59,27,85,.3)); }
+  .avatar{ flex:0 0 auto; align-self:stretch; display:flex; align-items:flex-end; justify-content:center; position:relative; }
+  .avatar::before{ content:""; position:absolute; bottom:12px; left:50%; width:160px; height:28px; transform:translateX(-50%);
+    background:radial-gradient(ellipse at center, rgba(59,27,85,.42), rgba(59,27,85,0) 70%); border-radius:50%; z-index:0; }
+  .avatar img{ position:relative; z-index:1; height:380px; width:auto; display:block; filter:drop-shadow(2px 4px 5px rgba(59,27,85,.28)); }
   .hero-text{ flex:1 1 300px; min-width:260px; padding-top:14px; }
   .bubble{ position:relative; background:#fff; border:3px solid var(--line); border-radius:14px; padding:16px 18px; font-size:22px; font-weight:600; }
   .bubble::after{ content:""; position:absolute; left:-15px; top:26px; border:9px solid transparent; border-right-color:var(--line); }
