@@ -127,17 +127,33 @@
   .connect .win-body{ text-align:center; }
   .connect h2.big{ font-family:var(--pix); font-size:clamp(20px,4vw,34px); color:var(--accent-2); line-height:1.5; margin:6px 0 4px; text-shadow:2px 2px 0 rgba(214,31,143,.18); }
   .connect h2.big .pink{ color:var(--accent); }
-  .contact-card{ max-width:580px; margin:24px auto 0; text-align:left; }
-  .methods .m{ display:flex; gap:12px; padding:11px 2px; border-bottom:2px dotted rgba(106,59,159,.3); font-size:18px; align-items:baseline; }
-  .methods .m .ml{ font-family:var(--pix); font-size:10px; color:var(--accent); min-width:96px; }
-  form.inq{ margin-top:18px; display:grid; gap:13px; }
-  form.inq label{ display:flex; flex-direction:column; gap:6px; font-size:15px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
-  form.inq input, form.inq textarea{ font-family:var(--body); font-size:18px; padding:12px 13px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--ink); }
-  form.inq textarea{ resize:vertical; min-height:96px; }
   .btn{ display:inline-block; font-family:var(--pix); font-size:13px; color:#fff; text-decoration:none; cursor:pointer;
     background:linear-gradient(90deg,var(--title-a),var(--title-b)); border:3px solid var(--line); border-radius:10px; padding:14px 19px; }
   .btn:active{ transform:translateY(1px); }
   .cta-row{ text-align:center; margin-top:10px; }
+
+  /* screening form */
+  .screening-card{ max-width:680px; margin:24px auto 0; text-align:left; }
+  .screening-card .pb{ padding:20px 22px; }
+  .sform .intro{ font-size:17px; color:var(--muted); margin:0 0 20px; }
+  .sform fieldset{ border:2px solid var(--line); border-radius:10px; padding:2px 16px 18px; margin:0 0 18px; background:#fff; }
+  .sform legend{ display:flex; align-items:center; gap:8px; font-family:var(--pix); font-size:11px; color:var(--accent-2); padding:0 8px; }
+  .sform legend span{ color:var(--accent); }
+  .sform label{ display:flex; flex-direction:column; gap:6px; }
+  .sform label > span{ font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  .sform fieldset > label, .sform #methodDetail{ margin-top:14px; }
+  .field-grid2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px; }
+  .field-grid2 > label{ margin-top:0; }
+  .sform .full{ grid-column:1 / -1; }
+  .sform input, .sform select, .sform textarea{ font-family:var(--body); font-size:17px; padding:11px 12px; border:2px solid var(--line); border-radius:8px; background:#fff; color:var(--ink); width:100%; }
+  .sform input:focus, .sform select:focus, .sform textarea:focus{ outline:none; border-color:var(--accent); }
+  .sform textarea{ resize:vertical; }
+  .sform .submit{ width:100%; margin-top:4px; font-family:var(--pix); font-size:13px; color:#fff; cursor:pointer;
+    background:linear-gradient(90deg,var(--title-a),var(--title-b)); border:3px solid var(--line); border-radius:10px; padding:15px 19px; }
+  .sform .submit:disabled{ opacity:.7; cursor:default; }
+  .form-notice{ border:2px solid var(--accent); color:var(--accent); background:rgba(214,31,143,.06); border-radius:8px; padding:13px 15px; margin-top:16px; font-size:16px; }
+  .quick-links{ text-align:center; margin-top:20px; font-size:16px; color:var(--muted); }
+  .quick-links a{ font-weight:700; white-space:nowrap; }
 
   .foot{ position:relative; z-index:1; text-align:center; color:var(--muted); font-size:15px; padding:0 16px 40px; }
   .foot a{ font-weight:700; }
@@ -145,6 +161,7 @@
   @media (max-width:720px){
     body{ font-size:18px; }
     .grid{ grid-template-columns:1fr; }
+    .field-grid2{ grid-template-columns:1fr; }
     .hero-row{ justify-content:center; }
     .avatar{ align-self:center; }
     .avatar img{ height:300px; }
@@ -283,31 +300,49 @@
       <div class="win-bar"><span class="t">CONNECT.EXE</span><span class="dots"><i></i><i></i></span></div>
       <div class="win-body">
         <h2 class="big">Want to meet?<br><span class="pink">Let's talk.</span></h2>
-        <div class="win contact-card">
-          <div class="win-bar"><span class="t">CONTACT&nbsp;ME</span><span class="dots"><i></i><i></i></span></div>
-          <div class="pb" style="padding:16px 18px">
-            <div class="methods">
-              <div class="m"><span class="ml">PHONE</span><span><a href="tel:+17544440974">754-444-0974</a></span></div>
-              <div class="m"><span class="ml">REVIEWS</span><span><a href="https://privatedelights.ch/profile/RoryGrey" target="_blank" rel="noopener noreferrer">PrivateDelights · RoryGrey</a></span></div>
-              <div class="m"><span class="ml">X</span><span><a href="https://x.com/roryxgrey" target="_blank" rel="noopener noreferrer">@roryxgrey</a></span></div>
-              <div class="m"><span class="ml">EMAIL</span><span>By introduction, provided after screening</span></div>
-            </div>
-            <form class="inq" action="https://formspree.io/f/moearjqb" method="POST">
-              <input type="hidden" name="_subject" value="New inquiry, RoryGrey.com (classic)" />
-              <label>Your name
-                <input name="legalName" autocomplete="name" required />
-              </label>
-              <label>Phone or email
-                <input name="contact" required />
-              </label>
-              <label>Tell me a little about yourself &amp; what you have in mind
-                <textarea name="message" rows="4"></textarea>
-              </label>
-              <button class="btn" type="submit">Send my introduction →</button>
+        <div class="win screening-card">
+          <div class="win-bar"><span class="t">SCREENING.EXE</span><span class="dots"><i></i><i></i></span></div>
+          <div class="pb">
+            <form class="sform" id="screeningForm" novalidate>
+              <input type="hidden" name="_subject" value="New screening inquiry, RoryGrey.com" />
+              <p class="intro">Tell me a little about yourself and the time you're imagining. Screening helps me know a little about who I'm meeting before we disappear into our own world for a while. I reply personally.</p>
+              <fieldset>
+                <legend><span>01</span> Contact + Appointment</legend>
+                <div class="field-grid2">
+                  <label><span>Legal name *</span><input name="legalName" autocomplete="name" required></label>
+                  <label><span>Age *</span><input name="age" type="number" min="21" required></label>
+                  <label><span>Phone number *</span><input name="phone" type="tel" autocomplete="tel" required></label>
+                  <label><span>Email address *</span><input name="email" type="email" autocomplete="email" required></label>
+                  <label><span>City + state *</span><input name="cityState" required></label>
+                  <label><span>Occupation / industry *</span><input name="occupation" required></label>
+                  <label><span>Preferred date *</span><input name="date" type="date" required></label>
+                  <label><span>Preferred start time *</span><input name="time" type="time" required></label>
+                  <label><span>Length of visit *</span><select name="length" required><option value="" disabled selected>Select</option><option>90 Minutes</option><option>2 Hours</option><option>4 Hours</option><option>8 Hours</option><option>Overnight</option><option>Something Longer</option></select></label>
+                  <label><span>Incall or outcall? *</span><select name="locationType" id="locationType" required><option value="incall">Incall</option><option value="outcall">Outcall</option></select></label>
+                  <label class="full" id="hotelField" hidden><span>Hotel or location *</span><input name="hotel"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend><span>02</span> Screening Method</legend>
+                <label class="full"><span>Preferred screening method *</span><select name="method" id="method" required>
+                  <option value="provider">Provider reference</option>
+                  <option value="linkedin">LinkedIn / professional verification</option>
+                  <option value="employment">Employment verification</option>
+                  <option value="reviews">Reviews</option></select></label>
+                <div id="methodDetail" style="margin-top:14px"></div>
+              </fieldset>
+              <fieldset>
+                <legend><span>03</span> A Little More</legend>
+                <label class="full"><span>What does an enjoyable date look like to you?</span><textarea name="idealDate" rows="4"></textarea></label>
+                <label class="full"><span>If you replace every part of an axe, is it the same axe?</span><textarea name="axe" rows="3"></textarea></label>
+              </fieldset>
+              <button type="submit" class="submit">Send My Introduction →</button>
+              <div id="screeningNotice"></div>
             </form>
-            <p style="font-size:14px;color:var(--muted);margin:14px 0 0">Screening is required for all new gentlemen. I reply personally, as promptly as life allows. Discretion, both ways, is assumed.</p>
+            <p style="font-size:14px;color:var(--muted);margin:16px 0 0">Screening is required for all new gentlemen. I reply personally, as promptly as life allows. Discretion, both ways, is assumed.</p>
           </div>
         </div>
+        <p class="quick-links">Prefer to reach out directly? <a href="tel:+17544440974">754-444-0974</a> &nbsp;·&nbsp; <a href="https://x.com/roryxgrey" target="_blank" rel="noopener noreferrer">@roryxgrey</a> &nbsp;·&nbsp; <a href="https://privatedelights.ch/profile/RoryGrey" target="_blank" rel="noopener noreferrer">Read my reviews</a></p>
       </div>
     </section>
 
@@ -352,6 +387,43 @@
         if (e.key === 'Escape') close();
         if (e.key === 'ArrowLeft') open(idx - 1);
         if (e.key === 'ArrowRight') open(idx + 1);
+      });
+    })();
+
+    // Screening form: conditional fields + submit (mirrors the desktop site)
+    (function(){
+      var form = document.getElementById('screeningForm');
+      if (!form) return;
+      var loc = document.getElementById('locationType');
+      var hotel = document.getElementById('hotelField');
+      var method = document.getElementById('method');
+      var detail = document.getElementById('methodDetail');
+      var notice = document.getElementById('screeningNotice');
+      var ENDPOINT = 'https://formspree.io/f/moearjqb';
+      loc.addEventListener('change', function(){ var out = loc.value === 'outcall'; hotel.hidden = !out; hotel.querySelector('input').required = out; });
+      var details = {
+        provider: '<label class="full"><span>Provider reference *</span><textarea name="providerReference" rows="4" placeholder="Provider name and contact information" required></textarea></label>',
+        linkedin: '<label class="full"><span>LinkedIn or professional profile *</span><input name="profile" type="url" required></label>',
+        employment: '<label class="full"><span>Employment information *</span><textarea name="employment" rows="4" placeholder="Information needed to verify your employment" required></textarea></label>',
+        reviews: '<div class="field-grid2"><label><span>Review platform *</span><select name="platform" required><option>TER</option><option>PrivateDelights</option></select></label><label><span>Profile / username *</span><input name="reviewProfile" required></label></div>'
+      };
+      function setDetail(){ detail.innerHTML = details[method.value] || ''; }
+      method.addEventListener('change', setDetail); setDetail();
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        if (!form.checkValidity()){ form.reportValidity(); return; }
+        var btn = form.querySelector('.submit'); var original = btn.innerHTML;
+        btn.disabled = true; btn.textContent = 'Sending…'; notice.innerHTML = '';
+        try {
+          var res = await fetch(ENDPOINT, { method:'POST', body:new FormData(form), headers:{ Accept:'application/json' } });
+          if (!res.ok) throw new Error('bad status ' + res.status);
+          form.reset(); hotel.hidden = true; hotel.querySelector('input').required = false; setDetail();
+          notice.innerHTML = '<div class="form-notice">Thank you, your introduction has been sent. I reply personally, as promptly as life allows.</div>';
+        } catch (err) {
+          notice.innerHTML = '<div class="form-notice">Something interrupted the send. Please try again in a moment, or reach me directly by phone.</div>';
+        } finally {
+          btn.disabled = false; btn.innerHTML = original; notice.scrollIntoView({ behavior:'smooth', block:'nearest' });
+        }
       });
     })();
   </script>
