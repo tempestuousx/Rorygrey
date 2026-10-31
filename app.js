@@ -288,7 +288,7 @@ function renderAbout() {
     <div class="section-label"><span class="n">03</span><span class="t">By Way of Particulars</span></div>
     <div class="particulars">
       <div class="row"><div class="k">Personality</div><p>Warm, curious, and generally well-behaved in public. I like smart conversation, inappropriate jokes, and people who don't take themselves so seriously that dinner starts feeling like a board meeting.</p></div>
-      <div class="row"><div class="k">Interests</div><p>Airplanes, engines, games, cybersecurity, road trips, good music, taking things apart to see how they work, and falling into rabbit holes with absolutely no respect for bedtime.</p></div>
+      <div class="row"><div class="k">Interests</div><p>Airplanes, engines, video games, cybersecurity, road trips, good music, taking things apart to see how they work, and falling into rabbit holes with absolutely no respect for bedtime.</p></div>
       <div class="row"><div class="k">Contradictions</div><p>Dresses up beautifully, swears casually. Loves a plan, regularly ignores it. Very feminine, deeply nosy about machinery. Excellent manners, questionable jokes.</p></div>
       <div class="row"><div class="k">Direct Line</div><p>${CONFIG.PHONE}</p></div>
     </div>
