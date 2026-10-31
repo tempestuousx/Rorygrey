@@ -19,7 +19,7 @@ details.rule summary .num, details.rule summary .pm, .creed .big, .connect h2.bi
 *{ box-sizing:border-box; }
 html,body{ margin:0; }
 body{
-  font-family:var(--body); color:var(--ink); font-size:20px; line-height:1.62;
+  font-family:var(--body); color:var(--ink); font-size:20px; line-height:1.72;
   background:#eadcfa url("wallpaper_clouds.jpg") center top / cover fixed no-repeat;
   -webkit-font-smoothing:antialiased;
 }
@@ -49,7 +49,7 @@ img{ max-width:100%; }
 .win-bar .t{ font-family:var(--pix); font-size:18px; text-shadow:1px 1px 0 rgba(59,27,85,.5); }
 .win-bar .dots{ margin-left:auto; display:flex; gap:7px; }
 .win-bar .dots i{ width:14px; height:14px; border-radius:50%; background:#fff; border:2px solid rgba(59,27,85,.45); display:block; }
-.win-body{ padding:24px 24px 28px;
+.win-body{ padding:30px 28px 34px;
   background-image:
     linear-gradient(rgba(106,59,159,.11) 1px, transparent 1px),
     linear-gradient(90deg, rgba(106,59,159,.11) 1px, transparent 1px);
@@ -57,7 +57,7 @@ img{ max-width:100%; }
 
 h2.sec{ font-family:var(--pix); font-size:30px; line-height:1.5; color:var(--accent-2); margin:0 0 16px; }
 .kicker{ font-family:var(--pix); font-size:13px; color:var(--accent); letter-spacing:1px; margin-bottom:12px; }
-p{ margin:0 0 15px; max-width:66ch; }
+p{ margin:0 0 18px; max-width:66ch; }
 .lede{ font-size:24px; font-weight:500; }
 .pull{ font-family:var(--script); font-size:clamp(34px,5vw,50px); line-height:1.05; color:var(--accent-2); border-left:4px solid var(--accent); padding:8px 0 8px 18px; margin:22px 0; }
 .pull b{ color:var(--accent); font-style:normal; }
@@ -77,7 +77,7 @@ p{ margin:0 0 15px; max-width:66ch; }
 .scrolltip{ margin-top:18px; font-size:15px; color:var(--muted); font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
 
 /* ---------- panels ---------- */
-.grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:6px 0; }
 .panel{ background:var(--panel-2); border:3px solid var(--line); border-radius:10px; overflow:hidden; }
 .panel > .ph{ display:flex; align-items:center; gap:8px; padding:9px 13px; background:#fff; border-bottom:2px solid var(--line); font-family:var(--pix); font-size:15px; color:var(--accent-2); }
 .panel > .ph .dots{ margin-left:auto; display:flex; gap:6px; }
@@ -102,14 +102,14 @@ p{ margin:0 0 15px; max-width:66ch; }
 .rate-foot{ font-size:16px; color:var(--muted); margin-top:14px; }
 
 /* etiquette */
-details.rule{ border:2px solid var(--line); border-radius:8px; background:#fff; margin-bottom:10px; overflow:hidden; }
-details.rule summary{ cursor:pointer; list-style:none; padding:14px 16px; font-weight:700; font-size:19px; display:flex; align-items:center; gap:12px; }
+details.rule{ border:2px solid var(--line); border-radius:10px; background:#fff; margin-bottom:16px; overflow:hidden; box-shadow:0 4px 0 -1px rgba(106,59,159,.14); }
+details.rule summary{ cursor:pointer; list-style:none; padding:17px 18px; font-weight:700; font-size:19px; display:flex; align-items:center; gap:12px; }
 details.rule summary::-webkit-details-marker{ display:none; }
 details.rule summary .num{ font-family:var(--pix); font-size:15px; color:var(--accent); }
 details.rule summary .pm{ margin-left:auto; font-family:var(--pix); font-size:18px; color:var(--accent-2); }
 details.rule[open] summary .pm::after{ content:"-"; } details.rule summary .pm::after{ content:"+"; }
-details.rule .rb{ padding:0 16px 15px 44px; }
-details.rule .rb p{ font-size:17px; margin:0; }
+details.rule .rb{ padding:2px 18px 18px 46px; }
+details.rule .rb p{ font-size:17px; margin:0; line-height:1.7; }
 .creed{ text-align:center; border:3px dashed var(--accent); border-radius:10px; padding:20px; margin-top:16px; }
 .creed .big{ font-family:var(--pix); font-size:26px; line-height:1.95; color:var(--accent-2); }
 
@@ -160,13 +160,25 @@ details.rule .rb p{ font-size:17px; margin:0; }
 .quick-links{ text-align:center; margin-top:20px; font-size:16px; color:var(--muted); }
 .quick-links a{ font-weight:700; white-space:nowrap; }
 
-/* faq + journal */
-details.rule .rb p + p{ margin-top:12px; }
-.jpost .rb{ padding-top:4px; }
-.jpost .jdate{ font-family:var(--pix); font-size:13px; color:var(--accent); letter-spacing:.5px; margin:0 0 14px; }
-.jpost .rb p{ font-size:17px; margin:0 0 13px; max-width:68ch; }
-.jpost .rb p:last-child{ margin-bottom:0; }
-.jpost .rb h3{ font-family:var(--pix); color:var(--accent-2); font-size:17px; text-transform:uppercase; letter-spacing:.03em; margin:18px 0 6px; }
+/* faq */
+details.rule .rb p + p{ margin-top:14px; }
+
+/* blog index: a list of posts you click into */
+.post-list{ display:flex; flex-direction:column; gap:16px; }
+.post-link{ display:block; text-decoration:none; color:var(--ink); background:#fff; border:2px solid var(--line); border-radius:10px;
+  padding:18px 20px; box-shadow:0 4px 0 -1px rgba(106,59,159,.14); transition:background .15s, transform .05s; }
+.post-link:hover{ background:var(--panel-2); }
+.post-link:active{ transform:translateY(1px); }
+.post-link .pt{ display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+  font-family:var(--pix); font-weight:700; text-transform:uppercase; letter-spacing:.03em; font-size:21px; color:var(--accent-2); }
+.post-link .pt .go{ color:var(--accent); font-size:15px; white-space:nowrap; }
+.post-link .pd{ font-family:var(--pix); font-size:13px; color:var(--accent); letter-spacing:.5px; margin-top:5px; }
+.post-link .pe{ font-size:16px; color:var(--muted); margin:9px 0 0; }
+
+/* a single blog post on its own page */
+.post-date{ font-family:var(--pix); font-size:14px; color:var(--accent); letter-spacing:.5px; margin:0 0 20px; }
+.postbody p{ font-size:18px; margin:0 0 18px; max-width:68ch; }
+.postbody h3{ font-family:var(--pix); color:var(--accent-2); font-size:19px; text-transform:uppercase; letter-spacing:.03em; margin:28px 0 8px; }
 
 /* sub-page intro + back link */
 .page-lead{ font-size:17px; color:var(--muted); margin:0 0 20px; }
