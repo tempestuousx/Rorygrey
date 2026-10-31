@@ -51,8 +51,8 @@ img{ max-width:100%; }
 .win-bar .dots i{ width:14px; height:14px; border-radius:50%; background:#fff; border:2px solid rgba(59,27,85,.45); display:block; }
 .win-body{ padding:24px 24px 28px;
   background-image:
-    linear-gradient(rgba(106,59,159,.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(106,59,159,.08) 1px, transparent 1px);
+    linear-gradient(rgba(106,59,159,.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,59,159,.11) 1px, transparent 1px);
   background-size:26px 26px; }
 
 h2.sec{ font-family:var(--pix); font-size:30px; line-height:1.5; color:var(--accent-2); margin:0 0 16px; }
@@ -82,7 +82,11 @@ p{ margin:0 0 15px; max-width:66ch; }
 .panel > .ph{ display:flex; align-items:center; gap:8px; padding:9px 13px; background:#fff; border-bottom:2px solid var(--line); font-family:var(--pix); font-size:15px; color:var(--accent-2); }
 .panel > .ph .dots{ margin-left:auto; display:flex; gap:6px; }
 .panel > .ph .dots i{ width:11px; height:11px; border-radius:50%; background:#fff; border:2px solid rgba(59,27,85,.4); }
-.panel .pb{ padding:15px 17px; }
+.panel .pb{ padding:15px 17px;
+  background-image:
+    linear-gradient(rgba(106,59,159,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,59,159,.09) 1px, transparent 1px);
+  background-size:24px 24px; }
 .panel.full{ grid-column:1 / -1; }
 
 .kv .k{ font-family:var(--pix); font-size:13px; color:var(--accent); letter-spacing:.5px; margin-top:14px; }
