@@ -302,7 +302,7 @@ function renderRates() {
     ["2 Hours", "$1,250"], ["3 Hours", "$1,750"], ["4 Hours", "$2,250", "Dates 4 hours and longer require some time out of the room."],
     ["6 Hours", "$3,000"], ["12 Hours", "$5,000"], ["Couples", "$1,000 / hr"], ["Additional Hours", "+$600 / hr"]];
   const ext = [["12 Hours", "$5,000", "FMTY, 12hr minimum + flight & hotel. Please inquire."],
-    ["24 Hours", "$7,500"], ["36 Hours", "$9,500"], ["48 Hours", "$13,000"]];
+    ["24 Hours", "$7,500"], ["36 Hours", "$9,500"], ["48 Hours", "$10,000"]];
   const virt = [["15 Mins, Texting", "$150"], ["20 Mins, FaceTime", "$250"]];
   const line = ([lab, price, note]) => `<div class="rate-line"><span class="lab">${lab}</span><span class="price"><span class="up">▲</span>${price}</span>${note ? `<span class="rate-note">${note}</span>` : ""}</div>`;
   return `<div class="rates">
